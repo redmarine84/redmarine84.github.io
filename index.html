@@ -6,6 +6,8 @@
         <style>
         #photo{
            border:6px ridge red;
+           float:left;
+           margin:10px;
         }
         #container{
             
@@ -21,7 +23,7 @@
             width: 39%;
             height: 125px;
             overflow-y: auto;
-            overflow-x: hidden;
+            overflow-x: auto;
             margin: 2px 0px 10px 0px;
             border: 2px dashed rgb(161, 161, 161);
             padding: 6px;
@@ -32,7 +34,7 @@
             width: 58%;
             height: 125px;
             overflow-y: auto;
-            overflow-x: hidden;
+            overflow-x: auto;
             margin: 2px 0px 10px 0px;
             border: 2px dashed rgb(161, 161, 161);
             padding: 6px;
@@ -43,22 +45,23 @@
             width: 58%;
             height: 125px;
             overflow-y: auto;
-            overflow-x: hidden;
+            overflow-x: auto;
             margin: 2px 0px 10px 0px;
             border: 2px dashed rgb(161, 161, 161);
             padding: 6px;
             
         }
         #ingredients{
-            position:absolute;
-            left:598px;
             float:right;
-            width:385px;
-            margin-top:-385px;
-            margin-left:10px;
-        }
+            width:363px;
+            margin-top:-408px;
+            overflow-x:hidden;
+            overflow-y:hidden;
+              }
         #steps{
             border:2px solid black;
+            margin-top:10px;
+            overflow:hidden;
         }
         </style>
     </head>
