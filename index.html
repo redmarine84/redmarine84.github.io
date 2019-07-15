@@ -28,14 +28,21 @@
         #ingredients{
             float:right;
             position:relative;
+            overflow:hidden;
             top:-410px;
-            
-            width:363px;
+            width:387px;
               }
         #steps{
             border:2px solid black;
             margin-top:90px;
             overflow:hidden;
+        }
+        #filling{
+            float:right;
+            position:relative;
+            overflow:hidden;
+            top:-410px;
+            
         }
         </style>
     </head>
@@ -241,7 +248,7 @@
             </tr>
             </tbody>
             </table>    
-             <table>
+            <div id="filling"><table>
             <thead>
                 <tr>
                     <th>Filling:</th>
@@ -284,7 +291,9 @@
                 </tr>
                 
             </tbody>
-        </table></div>
+        </table>
+            </div>
+        </div>
         
          <div id="steps"><p><strong>Step 1:</strong> Boil lasagna noodles until al dente. Drain and lay flat on a sheet of foil.</p>
 
