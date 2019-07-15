@@ -8,45 +8,65 @@
            border:6px ridge red;
            margin:10px;
         }
-        .container{
+        #container{
             
-            margin:6px;
+            padding:6px;
             
         }
         .emphasis{
                 color: red;
                 font-weight:bold;
         }
-        #begin{
-          background: rgb(230, 230, 230);
-            width:363px;
+        #beefstew-begin{
+            background: rgb(230, 230, 230);
+            width: 39%;
             height: 125px;
-            overflow:hidden;
+            overflow-y: auto;
+            overflow-x: auto;
+            margin: 2px 0px 10px 0px;
             border: 2px dashed rgb(161, 161, 161);
-            padding: 8px;  
+            padding: 6px;
+            
+        }
+        #lasagna-begin{
+            background: rgb(230, 230, 230);
+            width: 58%;
+            height: 125px;
+            overflow-y: auto;
+            overflow-x: auto;
+            margin: 2px 0px 10px 0px;
+            border: 2px dashed rgb(161, 161, 161);
+            padding: 6px;
+            
+        }
+        #frenchtoast-begin{
+            background: rgb(230, 230, 230);
+            width: 58%;
+            height: 125px;
+            overflow-y: auto;
+            overflow-x: auto;
+            margin: 2px 0px 10px 0px;
+            border: 2px dashed rgb(161, 161, 161);
+            padding: 6px;
+            
         }
         #ingredients{
-            float:left;
-            position:relative;
-            right:2%;
-            overflow:hidden;
-            top:-410px;
-           
+            float:right;
+            width:363px;
+            overflow-x:hidden;
+            overflow-y:hidden;
               }
         #steps{
             border:2px solid black;
-            position:relative;
+            margin-top:10px;
             overflow:hidden;
         }
-        #filling{
-            float:left;
-            margin:73px;
-            position:relative;
-            right:48%;
-            overflow:hidden;
-            top:-399px;
-          
+        .top{
             
+        }
+        #ingredienttitle{
+            font-weight:bold;
+            font-size:22px;
         }
         </style>
     </head>
@@ -62,98 +82,42 @@
             <li><a href="#french-toast">French Toast</a></li>
         </ol>
         
-        <div class="container"><h2 id="beef-stew">Beef Stew</h2>
-            <div class="photos"><img id="photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Cooked_mechado.JPG/328px-Cooked_mechado.JPG" alt="Beef Stew">
+        <div class="top">
+            <div id="container"><h2 id="beef-stew">Beef Stew</h2>
+            <div class="photos"><img id="photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Cooked_mechado.JPG/328px-Cooked_mechado.JPG" alt="Beef Stew"></div>
             
+                <div id="beefstew-begin"><ul>
+                    <li>Prep Time: 10 Minutes</li>
+                    <li>Cook Time: 150 Minutes</li>
+                    <li>Serves: 6</li>
+                </ul>
+               <p>
+               ** Recipe can be <span class="emphasis">doubled or tripled</span> if needed **
+                </p>
+                </div>
             </div>
         </div>
-            <div id="begin"><ul>
-                <li>Prep Time: 10 Minutes</li>
-                <li>Cook Time: 150 Minutes</li>
-                <li>Serves: 6</li>
-            </ul>
-           <p>
-            ** Recipe can be <span class="emphasis">doubled or tripled</span> if needed **
-            </p>
+        <div id="ingredients"><p id="ingredienttitle"><em>Ingredients</em>
+                <ul> 3 Tbsp Olive Oil</ul>
+                <ul>1 Tbsp Butter</ul>
+                <ul>1 Tbsps</ul>
+                <ul>2 Pounds Stew Meat</ul>
+                <ul>1  Medium Onion, Diced</ul>
+                <ul>3 Garlic cloves , Minced</ul>
+                <ul>1 can of Beer(12 Oz. Size)</ul>
+                <ul>4 cups Beef Stock</ul>
+                <ul>2 cups Water</ul>
+                <ul>1 Tbsp Worcestershire Sauce</ul>
+                <ul> Tomato Paste</ul>
+                <ul>1/2 tsp Paprika</ul>
+                <ul>1/2 tsp Kosher Salt</ul>
+                <ul>Freshly Ground Black Pepper</ul>
+                <ul>1-1/2 tsp Sugar</ul>
+                <ul>4 Carrots, Washed, Unpeeled, And Roughly Sliced</ul>
+                <ul>4 New Potatoes, Quartered</ul>
+                <ul>Minced Parsley (optional)</ul>
+                </p>
             </div>
-        
-        <div id="ingredients"><table>
-            <thead>
-                <tr>
-                    <th>Ingredients</th>
-                    <th>Quantity</th>
-                </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Olive Oil</td>
-                <td>3 Tbsps</td>
-            </tr>
-            <tr>
-                <td>Butter</td>
-                <td>1 Tbsps</td>
-            </tr>
-            <tr>
-                <td>Stew Meat</td>
-                <td>2 pounds</td>
-            </tr>
-            <tr>
-                <td>Medium Onion, Diced</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td>Garlic cloves , Minced</td>
-                <td>3</td>
-            </tr>
-            <tr>
-                <td>Beer</td>
-                <td>1 can (12 Oz. Size) </td>
-            </tr>
-            <tr>
-                <td>Beef Stock</td>
-                <td>4 Cups</td>
-            </tr>
-            <tr>
-                <td>Water</td>
-                <td>2 Cups</td>
-            </tr>
-            <tr>
-                <td>Worcestershire Sauce</td>
-                <td>1 Tbsps</td>
-            </tr>
-            <tr>
-                <td>Tomato Paste</td>
-                <td>2 Tbsps</td>
-            </tr>
-            <tr>
-                <td>Paprika</td>
-                <td>1/2 tsp</td>
-            </tr>
-            <tr>
-                <td>Kosher Salt</td>
-                <td>1/2 tsp</td>
-            </tr>
-            <tr>
-                <td>Freshly Ground Black Pepper</td>
-            </tr>
-            <tr>
-                <td>Sugar</td>
-                <td>1-1/2 tsp</td>
-            </tr>
-            <tr>
-                <td>Carrots, Washed, Unpeeled, And Roughly Sliced</td>
-                <td>4</td>
-            </tr>
-            <tr>
-                <td>New Potatoes, Quartered</td>
-                <td>4</td>
-            </tr>
-            <tr>
-                <td>Minced Parsley (optional)</td>
-            </tr>
-            
-            </tbody>
-        </table></div>
         
         <div id="steps"><p><strong>Step 1:</strong> Heat oil and butter in a large pot over medium-high heat. Brown meat in two batches, setting aside on a plate when brown. Cut pieces in half. Set aside.</p>
 
@@ -171,19 +135,18 @@
     
 <!--Lasagna Roll Ups-->
     
-    <div class="container"><h2 id="lasagna-rollups">Lasagna Rolls Ups</h2>
-        <div class="photos"><img id="photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Beef_lasagna_at_Cafe_Stax%2C_July_2009.jpg/800px-Beef_lasagna_at_Cafe_Stax%2C_July_2009.jpg" alt="Lasagna from Cafe Stax" width="328">
-        </div>
-    </div>
-            <div id="begin">
-                <ul>
-                    <li>Prep Time: 15 Minutes</li>
-                    <li>Cook Time: 90 Minutes</li>
-                    <li>Serves: 10</li>
-                </ul>
-        <p>** Recipe can be <span class="emphasis">doubled</span> if needed **</p>
-            </div>
+    <div id="container"><h2 id="lasagna-rollups">Lasagna Rolls Ups</h2>
+         <div class="photos"><img id="photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Beef_lasagna_at_Cafe_Stax%2C_July_2009.jpg/800px-Beef_lasagna_at_Cafe_Stax%2C_July_2009.jpg" alt="Lasagna from Cafe Stax" width="328"></div>
         
+        <div id="lasagna-begin"><ul>
+            <li>Prep Time: 15 Minutes</li>
+            <li>Cook Time: 90 Minutes</li>
+            <li>Serves: 10</li>
+        </ul>
+        <p>
+            ** Recipe can be <span class="emphasis">doubled</span> if needed **
+        </p></div>
+        </div>
         <div id="ingredients"><table>
             <thead>
                 <tr>
@@ -252,7 +215,7 @@
             </tr>
             </tbody>
             </table>    
-            <div id="filling"><table>
+             <table>
             <thead>
                 <tr>
                     <th>Filling:</th>
@@ -295,9 +258,7 @@
                 </tr>
                 
             </tbody>
-        </table>
-            </div>
-        </div>
+        </table></div>
         
          <div id="steps"><p><strong>Step 1:</strong> Boil lasagna noodles until al dente. Drain and lay flat on a sheet of foil.</p>
 
@@ -315,17 +276,15 @@ If baking from a frozen state, bake, covered in foil, at 350 for 45 minutes, the
     <p><em>Source: <a href="https://thepioneerwoman.com/cooking/lasagna-rollups/">https://thepioneerwoman.com/cooking/lasagna-rollups/</a></em></p>
     <p><em><a href="#tims-cookbook">Back to Top </a></em></p>
     
-    <div class="container"><h2 id="french-toast">Crunchy French Toast</h2>
-        <div class="photos"><img id="photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/French_Toast_%2816251867289%29.jpg/328px-French_Toast_%2816251867289%29.jpg" alt="Beef Stew">
-        </div>
-    </div>    
-        <div id="begin">
-            <ul>
-                <li>Prep Time: 5 Minutes</li>
-                <li>Cook Time: 10 Minutes</li>
-                <li>Serves: 4</li>
-            </ul>
-        </div>
+    <div id="container"><h2 id="french-toast">Crunchy French Toast</h2>
+        <div class="photos"><img id="photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/French_Toast_%2816251867289%29.jpg/328px-French_Toast_%2816251867289%29.jpg" alt="Beef Stew"></div>
+        
+        <div id="frenchtoast-begin"><ul>
+            <li>Prep Time: 5 Minutes</li>
+            <li>Cook Time: 10 Minutes</li>
+            <li>Serves: 4</li>
+        </ul>
+        </div></div>
         <div id="ingredients"><table>
             <thead>
                 <tr>
@@ -371,8 +330,7 @@ If baking from a frozen state, bake, covered in foil, at 350 for 45 minutes, the
             </tr>
             
             </tbody>
-        </table>
-        </div>
+        </table></div>
         
          <div id="steps"><p><strong>Step 1:</strong>In a pie pan, whisk together the eggs, half-and-half, half the sugar, and half the cinnamon. Set aside.</p>
 
