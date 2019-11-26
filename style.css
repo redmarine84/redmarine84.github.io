@@ -42,7 +42,7 @@ body{
 	background: rgb(230, 230, 230);
 	border: 2px dashed rgb(161, 161, 161);
 	padding: 6px;
-  width: 100%;
+	width: 100%;
 }
 #ingredienttitle{
 	font-weight:bold;
