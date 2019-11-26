@@ -16,7 +16,6 @@ a:visited {
 	background-color: blue;
 	border: white solid 10px;
 }
-
 [class*="col"] {  
 	background-color: white; 
 	padding: 10px;
