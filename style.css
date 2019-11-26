@@ -1,6 +1,22 @@
 body{
 	background-image: url('https://cdn.shopify.com/s/files/1/2113/1813/products/SwatchWhiteDiamond2018_1400x.jpg?v=1561999406')
 }
+.container, .container-fluid {
+  background-color: teal;
+  border: black solid 10px;
+  color: teal;
+}
+
+.row {
+  background-color: rgb(236, 93, 23);
+  border: white solid 10px;
+}
+
+[class*="col"]{
+  border: red solid 5px;
+  background-color: lightblue;
+  color: blue;   
+}
 #photo{
 	width: 50%;
 	border: 6px ridge red;
