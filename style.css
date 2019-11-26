@@ -2,24 +2,24 @@ body{
 	background-image: url('https://cdn.shopify.com/s/files/1/2113/1813/products/SwatchWhiteDiamond2018_1400x.jpg?v=1561999406')
 }
 .container, .container-fluid {
-  background-color: white;
-  border: black solid 10px; 
+	background-color: white;
+	border: black solid 10px; 
 }
 
 .row {
-  background-color: blue;
-  border: white solid 10px;
+	background-color: blue;
+	border: white solid 10px;
 }
 
 [class*="col"]{  
-  background-color: white; 
-  padding: 10px;
+	background-color: white; 
+	padding: 10px;
 }
 #photo{
 	width: 100%;
 	border: 6px ridge red;
 	margin: 6px;
-  padding: 2px;
+	padding: 2px;
 }
 #container{            
 	padding:2px;            
@@ -45,14 +45,14 @@ body{
   width: 100%;
 }
 #ingredienttitle{
-  font-weight:bold;
-  font-size:22px;
+	font-weight:bold;
+	font-size:22px;
 }
 #tims-cookbook {
-  background-color: lightblue;
+	background-color: lightblue;
 	font-weight: bold;
 	font-size: 72px;
 	font-family: vladimir script;
 	color: blue;
-  text-align: center;
+	text-align: center;
 }
