@@ -20,7 +20,7 @@
       <p class="eyebrow">Family Cookbook</p>
       <h1>Recipes worth passing down.</h1>
       <p class="hero-text">
-        Search, save, print, and preserve your family favorites in one polished cookbook-style website.
+        Search, save, edit, print, and preserve your family favorites in one polished cookbook-style website.
       </p>
       <a class="primary-button" href="#add-recipe">Add a New Recipe</a>
     </section>
@@ -33,7 +33,7 @@
         <h2 id="recipe-search-title">Search Recipes</h2>
       </div>
       <label class="search-box" for="recipe-search">
-        <span>Search by name, category, ingredient, or step</span>
+        <span>Search by name, category, ingredient, note, source, or step</span>
         <input id="recipe-search" type="search" placeholder="Try beef, taco, cream cheese..." />
       </label>
     </section>
@@ -57,13 +57,19 @@
     <section class="cookbook-panel form-panel" id="add-recipe" aria-labelledby="add-recipe-title">
       <div class="section-heading form-heading">
         <div>
-          <p class="section-label">Preserve a favorite</p>
+          <p class="section-label" id="form-mode-label">Preserve a favorite</p>
           <h2 id="add-recipe-title">Add a New Recipe</h2>
-          <p class="muted">Recipes you add are saved in this browser using local storage.</p>
+          <p class="muted" id="form-help-text">Recipes you add are saved in this browser using local storage.</p>
         </div>
       </div>
 
+      <div id="edit-status" class="edit-status" hidden>
+        <strong>Editing:</strong> <span id="edit-status-title"></span>
+      </div>
+
       <form id="recipe-form" class="recipe-form">
+        <input id="editing-recipe-id" name="editingRecipeId" type="hidden" />
+
         <div class="form-grid">
           <label>
             Recipe Name <span aria-hidden="true">*</span>
@@ -91,10 +97,16 @@
           </label>
 
           <label>
-            Recipe Image
-            <input id="recipe-image" name="image" type="file" accept="image/*" />
+            Recipe Source
+            <input id="recipe-source" name="source" type="text" placeholder="Grandma, Aunt Eva, cookbook, website..." />
           </label>
         </div>
+
+        <label>
+          Recipe Image
+          <input id="recipe-image" name="image" type="file" accept="image/*" />
+          <span class="field-hint">When editing, leave this blank to keep the current image, or choose a new image to replace it.</span>
+        </label>
 
         <label>
           Ingredients <span aria-hidden="true">*</span>
@@ -112,11 +124,15 @@
         </label>
 
         <div class="image-preview-wrap" id="image-preview-wrap" hidden>
-          <p>Image Preview</p>
+          <p id="image-preview-title">Image Preview</p>
           <img id="image-preview" alt="Recipe preview" />
+          <button class="text-button" id="remove-image-button" type="button">Remove Image / Use Placeholder</button>
         </div>
 
-        <button class="primary-button form-submit" type="submit">Save Recipe</button>
+        <div class="form-actions">
+          <button class="primary-button form-submit" id="save-recipe-button" type="submit">Save Recipe</button>
+          <button class="secondary-button" id="cancel-edit-button" type="button" hidden>Cancel Edit</button>
+        </div>
       </form>
     </section>
   </main>
