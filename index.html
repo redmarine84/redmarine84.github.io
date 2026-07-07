@@ -13,7 +13,7 @@
       <div class="nav-links">
         <a href="#recipes">Recipes</a>
         <a href="#add-recipe">Add Recipe</a>
-        <a href="#github-settings">GitHub Settings</a>
+        <a href="#editor-access">Editor Access</a>
       </div>
     </nav>
 
@@ -28,59 +28,43 @@
   </header>
 
   <main>
-    <section class="cookbook-panel github-panel" id="github-settings" aria-labelledby="github-settings-title">
+    <section class="cookbook-panel github-panel" id="editor-access" aria-labelledby="editor-access-title">
       <div class="section-heading form-heading">
         <div>
-          <p class="section-label">Website publishing</p>
-          <h2 id="github-settings-title">GitHub Recipe Storage</h2>
+          <p class="section-label">Recipe publishing</p>
+          <h2 id="editor-access-title">Editor Access</h2>
           <p class="muted">
-            Images upload to <strong>images/filename</strong>, the folder beside this index.html file. Recipes publish to a JSON file so everyone can see the same cookbook.
+            Recipes publish to <strong>data/recipes.json</strong> and uploaded images publish to <strong>images/filename</strong> in this GitHub Pages repo.
+            The GitHub owner, repo, branch, and folders are set once in <strong>config.js</strong>, so family members do not have to enter them here.
           </p>
         </div>
       </div>
 
       <form id="github-form" class="github-form">
-        <div class="form-grid">
-          <label>
-            GitHub Owner / Username <span aria-hidden="true">*</span>
-            <input id="github-owner" name="owner" type="text" placeholder="redmarine84" autocomplete="off" />
-          </label>
+        <input id="github-owner" name="owner" type="hidden" />
+        <input id="github-repo" name="repo" type="hidden" />
+        <input id="github-branch" name="branch" type="hidden" />
+        <input id="github-image-folder" name="imageFolder" type="hidden" />
+        <input id="github-recipes-path" name="recipesPath" type="hidden" />
 
+        <div class="form-grid single-column">
           <label>
-            Repository Name <span aria-hidden="true">*</span>
-            <input id="github-repo" name="repo" type="text" placeholder="FamilyRecipes.github.io" autocomplete="off" />
-          </label>
-
-          <label>
-            Branch <span aria-hidden="true">*</span>
-            <input id="github-branch" name="branch" type="text" value="main" autocomplete="off" />
-          </label>
-
-          <label>
-            Image Folder <span aria-hidden="true">*</span>
-            <input id="github-image-folder" name="imageFolder" type="text" value="images" autocomplete="off" />
-            <span class="field-hint">Use exactly <strong>images</strong> for paths like <strong>images/bot.png</strong>.</span>
-          </label>
-
-          <label>
-            Recipes JSON File <span aria-hidden="true">*</span>
-            <input id="github-recipes-path" name="recipesPath" type="text" value="data/recipes.json" autocomplete="off" />
-          </label>
-
-          <label>
-            GitHub Fine-Grained Token <span aria-hidden="true">*</span>
-            <input id="github-token" name="token" type="password" placeholder="Paste token here" autocomplete="off" />
+            Editor GitHub Token
+            <input id="github-token" name="token" type="password" placeholder="Paste editor token to publish changes" autocomplete="off" />
+            <span class="field-hint">
+              Only people allowed to publish recipe changes need this. Visitors can still search and print recipes without a token.
+            </span>
           </label>
         </div>
 
         <div class="form-actions">
-          <button class="primary-button" id="save-github-settings-button" type="button">Save GitHub Settings</button>
-          <button class="secondary-button" id="load-github-recipes-button" type="button">Load Recipes from GitHub</button>
+          <button class="primary-button" id="save-github-settings-button" type="button">Save Editor Token</button>
+          <button class="secondary-button" id="load-github-recipes-button" type="button">Load Latest Recipes</button>
           <button class="secondary-button" id="publish-recipes-button" type="button">Publish Current Recipes</button>
         </div>
 
         <p class="field-hint">
-          Token needs repository contents read/write permission. The token is saved only in this browser, not inside your website files.
+          Do not put your GitHub token inside <strong>config.js</strong>. Tokens are saved only in the current browser.
         </p>
         <p id="github-message" class="save-message" role="status" aria-live="polite"></p>
       </form>
@@ -209,6 +193,7 @@
     <a href="#top">Back to Top</a>
   </footer>
 
+  <script src="config.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
