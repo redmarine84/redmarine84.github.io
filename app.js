@@ -106,6 +106,7 @@ let recipes = loadRecipes();
 let selectedImageData = "";
 let removeCurrentImage = false;
 let editingRecipeId = "";
+let isSavingRecipe = false;
 
 const recipesGrid = document.querySelector("#recipes-grid");
 const recipeCount = document.querySelector("#recipe-count");
@@ -126,11 +127,17 @@ const editStatusTitle = document.querySelector("#edit-status-title");
 const saveRecipeButton = document.querySelector("#save-recipe-button");
 const cancelEditButton = document.querySelector("#cancel-edit-button");
 const removeImageButton = document.querySelector("#remove-image-button");
+const saveMessage = document.querySelector("#save-message");
 
 currentYear.textContent = new Date().getFullYear();
 renderRecipes();
 
 searchInput.addEventListener("input", renderRecipes);
+saveRecipeButton.addEventListener("click", handleRecipeSave);
+recipeForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  handleRecipeSave();
+});
 cancelEditButton.addEventListener("click", resetRecipeForm);
 removeImageButton.addEventListener("click", () => {
   selectedImageData = "";
@@ -162,53 +169,101 @@ imageInput.addEventListener("change", async (event) => {
     return;
   }
 
-  selectedImageData = await readFileAsDataURL(file);
-  removeCurrentImage = false;
-  showImagePreview(selectedImageData, editingRecipeId ? "New Replacement Image" : "Image Preview");
+  try {
+    selectedImageData = await readImageFileAsDataURL(file);
+    removeCurrentImage = false;
+    showImagePreview(selectedImageData, editingRecipeId ? "New Replacement Image" : "Image Preview");
+  } catch (error) {
+    console.error("Image could not be loaded.", error);
+    alert("That image could not be loaded. Please try a different image.");
+    imageInput.value = "";
+  }
 });
 
-recipeForm.addEventListener("submit", (event) => {
-  event.preventDefault();
 
-  const formData = new FormData(recipeForm);
-  const existingRecipe = editingRecipeId
-    ? recipes.find((item) => item.id === editingRecipeId)
+function handleRecipeSave() {
+  if (isSavingRecipe) return;
+
+  clearSaveMessage();
+
+  if (typeof recipeForm.reportValidity === "function" && !recipeForm.reportValidity()) {
+    return;
+  }
+
+  const currentEditingId = editingRecipeId || editingRecipeIdInput.value;
+  const existingRecipe = currentEditingId
+    ? recipes.find((item) => item.id === currentEditingId)
     : null;
 
-  const recipeData = {
-    id: existingRecipe?.id || generateId(),
-    title: formData.get("title").trim(),
-    category: formData.get("category").trim() || "Family Favorite",
-    prepTime: formData.get("prepTime").trim() || "—",
-    cookTime: formData.get("cookTime").trim() || "—",
-    servings: formData.get("servings").trim() || "—",
-    source: formData.get("source").trim(),
-    image: getSavedImage(existingRecipe),
-    ingredients: splitLines(formData.get("ingredients")),
-    instructions: splitLines(formData.get("instructions")),
-    notes: formData.get("notes").trim(),
-    updatedAt: new Date().toISOString(),
-    createdAt: existingRecipe?.createdAt || new Date().toISOString()
-  };
-
-  if (existingRecipe) {
-    recipes = recipes.map((recipe) => (recipe.id === existingRecipe.id ? recipeData : recipe));
-  } else {
-    recipes.unshift(recipeData);
+  if (currentEditingId && !existingRecipe) {
+    showSaveMessage("This recipe could not be found for editing. Cancel edit and try again.", true);
+    return;
   }
 
-  saveRecipes();
-  resetRecipeForm();
-  searchInput.value = "";
-  renderRecipes();
+  isSavingRecipe = true;
+  saveRecipeButton.disabled = true;
 
-  const updatedCard = document.getElementById(slugify(recipeData.title));
-  if (updatedCard) {
-    updatedCard.scrollIntoView({ behavior: "smooth", block: "start" });
-  } else {
-    document.querySelector("#recipes").scrollIntoView({ behavior: "smooth" });
+  try {
+    const formData = new FormData(recipeForm);
+
+    const recipeData = {
+      id: existingRecipe?.id || generateId(),
+      title: getFormValue(formData, "title") || "Untitled Recipe",
+      category: getFormValue(formData, "category") || "Family Favorite",
+      prepTime: getFormValue(formData, "prepTime") || "—",
+      cookTime: getFormValue(formData, "cookTime") || "—",
+      servings: getFormValue(formData, "servings") || "—",
+      source: getFormValue(formData, "source"),
+      image: getSavedImage(existingRecipe),
+      ingredients: splitLines(formData.get("ingredients")),
+      instructions: splitLines(formData.get("instructions")),
+      notes: getFormValue(formData, "notes"),
+      updatedAt: new Date().toISOString(),
+      createdAt: existingRecipe?.createdAt || new Date().toISOString()
+    };
+
+    if (!recipeData.ingredients.length || !recipeData.instructions.length) {
+      showSaveMessage("Please enter at least one ingredient and one instruction.", true);
+      return;
+    }
+
+    const wasEditing = Boolean(existingRecipe);
+
+    if (existingRecipe) {
+      recipes = recipes.map((recipe) => (recipe.id === existingRecipe.id ? recipeData : recipe));
+    } else {
+      recipes.unshift(recipeData);
+    }
+
+    const saved = saveRecipes();
+    if (!saved) {
+      showSaveMessage(
+        "The recipe could not be saved. The image may be too large for browser storage. Try a smaller image and update again.",
+        true
+      );
+      return;
+    }
+
+    resetRecipeForm({ keepMessage: true });
+    searchInput.value = "";
+    renderRecipes();
+    showSaveMessage(wasEditing ? `"${recipeData.title}" was updated.` : `"${recipeData.title}" was saved.`);
+
+    const updatedCard = document.getElementById(slugify(recipeData.title));
+    if (updatedCard) {
+      updatedCard.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      document.querySelector("#recipes").scrollIntoView({ behavior: "smooth" });
+    }
+  } catch (error) {
+    console.error("Recipe could not be saved.", error);
+    showSaveMessage("Something went wrong while saving. Check the recipe fields and try again.", true);
+  } finally {
+    isSavingRecipe = false;
+    saveRecipeButton.disabled = false;
   }
-});
+}
+
 
 recipesGrid.addEventListener("click", (event) => {
   const printButton = event.target.closest("[data-print-id]");
@@ -258,7 +313,11 @@ function loadRecipes() {
   }
 
   const normalizedSeeds = seedRecipes.map(normalizeRecipe);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(normalizedSeeds));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(normalizedSeeds));
+  } catch (error) {
+    console.warn("Starter recipes could not be saved to local storage.", error);
+  }
   return normalizedSeeds;
 }
 
@@ -281,7 +340,13 @@ function normalizeRecipe(recipe) {
 }
 
 function saveRecipes() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes));
+    return true;
+  } catch (error) {
+    console.error("Recipes could not be saved to local storage.", error);
+    return false;
+  }
 }
 
 function splitLines(value) {
@@ -372,6 +437,7 @@ function createRecipeCard(recipe) {
 }
 
 function startEditingRecipe(recipeId) {
+  clearSaveMessage();
   const recipe = recipes.find((item) => item.id === recipeId);
   if (!recipe) return;
 
@@ -397,7 +463,7 @@ function startEditingRecipe(recipeId) {
   setTimeout(() => recipeForm.elements.title.focus(), 350);
 }
 
-function resetRecipeForm() {
+function resetRecipeForm(options = {}) {
   recipeForm.reset();
   selectedImageData = "";
   removeCurrentImage = false;
@@ -405,6 +471,9 @@ function resetRecipeForm() {
   editingRecipeIdInput.value = "";
   hideImagePreview();
   setFormMode("add");
+  if (!options.keepMessage) {
+    clearSaveMessage();
+  }
 }
 
 function setFormMode(mode, recipeTitle = "") {
@@ -419,6 +488,23 @@ function setFormMode(mode, recipeTitle = "") {
   cancelEditButton.hidden = !editing;
   editStatus.hidden = !editing;
   editStatusTitle.textContent = recipeTitle;
+}
+
+
+function getFormValue(formData, name) {
+  return String(formData.get(name) || "").trim();
+}
+
+function showSaveMessage(message, isError = false) {
+  if (!saveMessage) return;
+  saveMessage.textContent = message;
+  saveMessage.classList.toggle("error", isError);
+}
+
+function clearSaveMessage() {
+  if (!saveMessage) return;
+  saveMessage.textContent = "";
+  saveMessage.classList.remove("error");
 }
 
 function getSavedImage(existingRecipe) {
@@ -541,6 +627,39 @@ function printRecipe(recipe) {
     printFrame.contentWindow.print();
     setTimeout(() => printFrame.remove(), 1000);
   };
+}
+
+
+async function readImageFileAsDataURL(file) {
+  const dataUrl = await readFileAsDataURL(file);
+  return resizeImageDataURL(dataUrl, 1400, 0.82);
+}
+
+function resizeImageDataURL(dataUrl, maxSize, quality) {
+  return new Promise((resolve) => {
+    const image = new Image();
+
+    image.onload = () => {
+      const largestSide = Math.max(image.width, image.height);
+
+      if (largestSide <= maxSize && dataUrl.length < 1000000) {
+        resolve(dataUrl);
+        return;
+      }
+
+      const scale = Math.min(1, maxSize / largestSide);
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.max(1, Math.round(image.width * scale));
+      canvas.height = Math.max(1, Math.round(image.height * scale));
+
+      const context = canvas.getContext("2d");
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      resolve(canvas.toDataURL("image/jpeg", quality));
+    };
+
+    image.onerror = () => resolve(dataUrl);
+    image.src = dataUrl;
+  });
 }
 
 function readFileAsDataURL(file) {
