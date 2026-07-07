@@ -582,3 +582,29 @@ button:disabled {
   cursor: not-allowed;
   opacity: 0.65;
 }
+
+.github-panel {
+  margin-bottom: 34px;
+  padding: clamp(24px, 4vw, 42px);
+}
+
+.github-form {
+  display: grid;
+  gap: 20px;
+}
+
+.recipe-image-path {
+  border-left: 4px solid rgba(199, 147, 74, 0.45);
+  margin: 0;
+  padding: 6px 0 6px 12px;
+  color: var(--muted);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.github-panel strong,
+.field-hint strong {
+  color: var(--brand-dark);
+}
