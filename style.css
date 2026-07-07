@@ -608,3 +608,7 @@ button:disabled {
 .field-hint strong {
   color: var(--brand-dark);
 }
+
+.single-column {
+  grid-template-columns: 1fr;
+}
