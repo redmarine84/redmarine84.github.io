@@ -564,3 +564,21 @@ main {
   color: var(--brand-dark);
   background: #f8ead6;
 }
+
+
+.save-message {
+  min-height: 1.4rem;
+  margin: 14px 0 0;
+  color: var(--sage);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 800;
+}
+
+.save-message.error {
+  color: #8f1f12;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
