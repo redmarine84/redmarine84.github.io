@@ -1,0 +1,88 @@
+[
+  {
+    "id": "beef-stew",
+    "title": "Beef Stew",
+    "category": "Dinner",
+    "prepTime": "10 minutes",
+    "cookTime": "150 minutes",
+    "servings": "6",
+    "source": "Original starter recipe",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Cooked_mechado.JPG/640px-Cooked_mechado.JPG",
+    "ingredients": [
+      "3 Tbsp olive oil",
+      "1 Tbsp butter",
+      "2 pounds stew meat",
+      "1 medium onion, diced",
+      "3 garlic cloves, minced",
+      "1 can beer, 12 oz",
+      "4 cups beef stock",
+      "2 cups water",
+      "1 Tbsp Worcestershire sauce",
+      "Tomato paste",
+      "1/2 tsp paprika",
+      "1/2 tsp kosher salt",
+      "Freshly ground black pepper",
+      "1 1/2 tsp sugar",
+      "4 carrots, roughly sliced",
+      "4 new potatoes, quartered",
+      "Minced parsley, optional"
+    ],
+    "instructions": [
+      "Heat oil and butter in a large pot over medium-high heat. Brown meat in two batches, then set aside.",
+      "Add diced onions to the pot and cook for 2 to 3 minutes. Add garlic and cook for another minute.",
+      "Pour in beer and beef stock. Add Worcestershire sauce, tomato paste, paprika, salt, pepper, and sugar. Return beef to the pot, cover, and simmer for 1 1/2 to 2 hours.",
+      "Add carrots and potatoes. Cover and cook for 30 more minutes. Add hot water as needed if the stew gets too thick.",
+      "Taste and adjust seasoning. Serve with crusty bread and minced parsley if desired."
+    ],
+    "notes": "Recipe can be doubled or tripled if needed."
+  },
+  {
+    "id": "pin-wheels",
+    "title": "Pin Wheels",
+    "category": "Appetizer",
+    "prepTime": "15 minutes",
+    "cookTime": "Chill 30 minutes",
+    "servings": "6",
+    "source": "Family favorite",
+    "image": "https://images.unsplash.com/photo-1625944525533-473f1a3d54e7?auto=format&fit=crop&w=900&q=80",
+    "ingredients": [
+      "2 packages cream cheese, 8 oz each, softened",
+      "1 package ranch salad dressing mix, 1 oz",
+      "3 green onions, chopped",
+      "1/2 green bell pepper, chopped",
+      "11 flour tortillas, 8 inch",
+      "22 slices thinly sliced ham"
+    ],
+    "instructions": [
+      "Beat cream cheese and ranch dressing mix in a small bowl. Stir in green onions and bell pepper.",
+      "Spread cream cheese mixture over each tortilla and top each tortilla with two slices of ham.",
+      "Roll tortillas tightly and wrap in plastic wrap. Refrigerate until firm, about 30 minutes.",
+      "Unwrap and cut into 3/4-inch slices."
+    ],
+    "notes": "Great make-ahead party snack."
+  },
+  {
+    "id": "taco-rolls",
+    "title": "Taco Rolls",
+    "category": "Dinner",
+    "prepTime": "15 minutes",
+    "cookTime": "15 minutes",
+    "servings": "8",
+    "source": "Family favorite",
+    "image": "https://images.unsplash.com/photo-1613514785940-daed07799d9b?auto=format&fit=crop&w=900&q=80",
+    "ingredients": [
+      "1 pound ground beef",
+      "1 package taco seasoning",
+      "1 cup shredded sharp cheddar cheese",
+      "1 tube crescent rolls"
+    ],
+    "instructions": [
+      "Preheat oven to 350°F.",
+      "Brown ground beef, drain, and return it to the pan.",
+      "Add taco seasoning and prepare according to the seasoning package directions.",
+      "Place 2 spoonfuls of taco meat on each crescent roll, add cheese, and roll up.",
+      "Bake for 15 minutes or until the crescent rolls are golden brown."
+    ],
+    "notes": "Serve with salsa, sour cream, or guacamole."
+  }
+]
