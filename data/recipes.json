@@ -1,5 +1,43 @@
 [
   {
+    "id": "e444f6ce-d524-4d7f-99e8-7b4553061d46",
+    "title": "Brunswich Stew",
+    "category": "Dinner",
+    "prepTime": "60 mins",
+    "cookTime": "2 hours",
+    "servings": "6 Quarts",
+    "source": "Grandma",
+    "image": "images/chatgpt-image-jul-7-2026-07-38-14-pm.png",
+    "ingredients": [
+      "7 lb Whole Chicken",
+      "2 lb Beef Roast",
+      "1 lb Frozen Butterbeans",
+      "20 oz Frozen Corn",
+      "2 cans (regular) Tomatoes",
+      "2 Onions Chopped Fine",
+      "4 Large Potatoes Diced Small",
+      "4 Tbsp Worcestershire Sauce",
+      "2 Tbsp Hot Sauce",
+      "4+ Tbsp Brown Sugar",
+      "1 Dried Hot Pepper",
+      "16 oz Catsup (Ketchup)",
+      "4 Tbsp Margarine",
+      "Salt and pepper to taste",
+      "Hot Sauce and Brown sugar to taste.",
+      "Chicken broth (from hen) for consistency"
+    ],
+    "instructions": [
+      "Cook Hen in Large pot until done and tender.",
+      "Cook Beef Roast in another Large pot until done and tender.",
+      "Cook Butterbeans, Corn and potatoes in Beef Broth from Beef Roast until done.",
+      "Add all remaining ingredients (Use LARGE POT) and cook slowly.",
+      "Add more liquid (chicken broth) if needed"
+    ],
+    "notes": "Grandma always made this with her barbeque beef and yeast rolls.",
+    "createdAt": "2026-07-07T23:57:57.580Z",
+    "updatedAt": "2026-07-07T23:57:57.580Z"
+  },
+  {
     "id": "beef-stew",
     "title": "Beef Stew",
     "category": "Dinner",
