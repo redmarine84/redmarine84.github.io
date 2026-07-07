@@ -1,5 +1,14 @@
 const STORAGE_KEY = "mcintyreRecipeBook.recipes";
-const INIT_KEY = "mcintyreRecipeBook.seeded";
+const GITHUB_SETTINGS_KEY = "mcintyreRecipeBook.githubSettings";
+
+const defaultGithubSettings = {
+  owner: "",
+  repo: "",
+  branch: "main",
+  imageFolder: "images",
+  recipesPath: "data/recipes.json",
+  token: ""
+};
 
 const placeholderImage =
   "data:image/svg+xml;charset=UTF-8," +
@@ -15,7 +24,7 @@ const placeholderImage =
 
 const seedRecipes = [
   {
-    id: generateId(),
+    id: "beef-stew",
     title: "Beef Stew",
     category: "Dinner",
     prepTime: "10 minutes",
@@ -52,7 +61,7 @@ const seedRecipes = [
     notes: "Recipe can be doubled or tripled if needed."
   },
   {
-    id: generateId(),
+    id: "pin-wheels",
     title: "Pin Wheels",
     category: "Appetizer",
     prepTime: "15 minutes",
@@ -77,7 +86,7 @@ const seedRecipes = [
     notes: "Great make-ahead party snack."
   },
   {
-    id: generateId(),
+    id: "taco-rolls",
     title: "Taco Rolls",
     category: "Dinner",
     prepTime: "15 minutes",
@@ -102,11 +111,13 @@ const seedRecipes = [
   }
 ];
 
-let recipes = loadRecipes();
-let selectedImageData = "";
+let recipes = [];
+let selectedImageFile = null;
+let selectedImagePreviewData = "";
 let removeCurrentImage = false;
 let editingRecipeId = "";
 let isSavingRecipe = false;
+let isPublishing = false;
 
 const recipesGrid = document.querySelector("#recipes-grid");
 const recipeCount = document.querySelector("#recipe-count");
@@ -114,6 +125,7 @@ const emptyState = document.querySelector("#empty-state");
 const searchInput = document.querySelector("#recipe-search");
 const recipeForm = document.querySelector("#recipe-form");
 const imageInput = document.querySelector("#recipe-image");
+const imagePathInput = document.querySelector("#recipe-image-path");
 const imagePreviewWrap = document.querySelector("#image-preview-wrap");
 const imagePreview = document.querySelector("#image-preview");
 const imagePreviewTitle = document.querySelector("#image-preview-title");
@@ -129,62 +141,205 @@ const cancelEditButton = document.querySelector("#cancel-edit-button");
 const removeImageButton = document.querySelector("#remove-image-button");
 const saveMessage = document.querySelector("#save-message");
 
-currentYear.textContent = new Date().getFullYear();
-renderRecipes();
+const githubForm = document.querySelector("#github-form");
+const githubOwnerInput = document.querySelector("#github-owner");
+const githubRepoInput = document.querySelector("#github-repo");
+const githubBranchInput = document.querySelector("#github-branch");
+const githubImageFolderInput = document.querySelector("#github-image-folder");
+const githubRecipesPathInput = document.querySelector("#github-recipes-path");
+const githubTokenInput = document.querySelector("#github-token");
+const saveGithubSettingsButton = document.querySelector("#save-github-settings-button");
+const loadGithubRecipesButton = document.querySelector("#load-github-recipes-button");
+const publishRecipesButton = document.querySelector("#publish-recipes-button");
+const githubMessage = document.querySelector("#github-message");
 
-searchInput.addEventListener("input", renderRecipes);
-saveRecipeButton.addEventListener("click", handleRecipeSave);
-recipeForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  handleRecipeSave();
-});
-cancelEditButton.addEventListener("click", resetRecipeForm);
-removeImageButton.addEventListener("click", () => {
-  selectedImageData = "";
-  removeCurrentImage = true;
-  imageInput.value = "";
-  showImagePreview(placeholderImage, "Placeholder Image");
-});
+initializeApp();
 
-imageInput.addEventListener("change", async (event) => {
-  const file = event.target.files[0];
+async function initializeApp() {
+  currentYear.textContent = new Date().getFullYear();
+  loadGithubSettingsIntoForm();
+  bindEvents();
 
-  if (!file) {
-    selectedImageData = "";
+  recipes = await loadInitialRecipes();
+  renderRecipes();
+}
+
+function bindEvents() {
+  searchInput.addEventListener("input", renderRecipes);
+  saveRecipeButton.addEventListener("click", handleRecipeSave);
+  recipeForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    handleRecipeSave();
+  });
+
+  cancelEditButton.addEventListener("click", resetRecipeForm);
+  removeImageButton.addEventListener("click", () => {
+    selectedImageFile = null;
+    selectedImagePreviewData = "";
+    removeCurrentImage = true;
+    imageInput.value = "";
+    imagePathInput.value = "";
+    showImagePreview(placeholderImage, "Placeholder Image");
+  });
+
+  imagePathInput.addEventListener("input", () => {
+    selectedImageFile = null;
+    selectedImagePreviewData = "";
+    imageInput.value = "";
     removeCurrentImage = false;
 
-    if (editingRecipeId) {
+    const path = imagePathInput.value.trim();
+    if (path) {
+      showImagePreview(path, "Image Path Preview");
+    } else if (editingRecipeId) {
       const recipe = recipes.find((item) => item.id === editingRecipeId);
       showImagePreview(recipe?.image || placeholderImage, "Current Image");
     } else {
       hideImagePreview();
     }
+  });
 
-    return;
-  }
+  imageInput.addEventListener("change", async (event) => {
+    const file = event.target.files[0];
 
-  if (!file.type.startsWith("image/")) {
-    alert("Please choose an image file.");
-    imageInput.value = "";
-    return;
-  }
+    if (!file) {
+      selectedImageFile = null;
+      selectedImagePreviewData = "";
+      removeCurrentImage = false;
 
+      const imagePath = imagePathInput.value.trim();
+      if (imagePath) {
+        showImagePreview(imagePath, "Image Path Preview");
+      } else if (editingRecipeId) {
+        const recipe = recipes.find((item) => item.id === editingRecipeId);
+        showImagePreview(recipe?.image || placeholderImage, "Current Image");
+      } else {
+        hideImagePreview();
+      }
+
+      return;
+    }
+
+    if (!file.type.startsWith("image/")) {
+      alert("Please choose an image file.");
+      imageInput.value = "";
+      return;
+    }
+
+    try {
+      selectedImageFile = file;
+      removeCurrentImage = false;
+      selectedImagePreviewData = await readFileAsDataURL(file);
+
+      const settings = getGithubSettingsFromForm();
+      imagePathInput.value = `${normalizeFolder(settings.imageFolder || "images")}/${sanitizeFileName(file.name)}`;
+      showImagePreview(selectedImagePreviewData, editingRecipeId ? "New Replacement Image" : "Image Preview");
+    } catch (error) {
+      console.error("Image could not be loaded.", error);
+      alert("That image could not be loaded. Please try a different image.");
+      imageInput.value = "";
+      selectedImageFile = null;
+      selectedImagePreviewData = "";
+    }
+  });
+
+  recipesGrid.addEventListener("click", async (event) => {
+    const printButton = event.target.closest("[data-print-id]");
+    const editButton = event.target.closest("[data-edit-id]");
+    const deleteButton = event.target.closest("[data-delete-id]");
+
+    if (printButton) {
+      const recipe = recipes.find((item) => item.id === printButton.dataset.printId);
+      if (recipe) printRecipe(recipe);
+    }
+
+    if (editButton) {
+      startEditingRecipe(editButton.dataset.editId);
+    }
+
+    if (deleteButton) {
+      const recipe = recipes.find((item) => item.id === deleteButton.dataset.deleteId);
+      if (!recipe) return;
+
+      const confirmed = confirm(`Delete "${recipe.title}" from this cookbook?`);
+      if (!confirmed) return;
+
+      recipes = recipes.filter((item) => item.id !== recipe.id);
+      saveLocalBackup();
+
+      if (editingRecipeId === recipe.id) {
+        resetRecipeForm();
+      }
+
+      renderRecipes();
+      await autoPublishRecipes(`Deleted recipe: ${recipe.title}`);
+    }
+  });
+
+  saveGithubSettingsButton.addEventListener("click", () => {
+    saveGithubSettingsFromForm();
+    showGithubMessage("GitHub settings saved on this browser.");
+  });
+
+  loadGithubRecipesButton.addEventListener("click", async () => {
+    clearGithubMessage();
+    try {
+      const loadedRecipes = await fetchRecipesFromGithubJson(true);
+      recipes = loadedRecipes.map(normalizeRecipe);
+      saveLocalBackup();
+      resetRecipeForm();
+      renderRecipes();
+      showGithubMessage(`Loaded ${recipes.length} recipe${recipes.length === 1 ? "" : "s"} from GitHub.`);
+    } catch (error) {
+      console.error(error);
+      showGithubMessage(error.message || "Recipes could not be loaded from GitHub.", true);
+    }
+  });
+
+  publishRecipesButton.addEventListener("click", async () => {
+    clearGithubMessage();
+    try {
+      saveGithubSettingsFromForm(false);
+      await publishRecipesToGitHub("Published current cookbook recipes");
+      showGithubMessage("Current recipes were published to GitHub.");
+    } catch (error) {
+      console.error(error);
+      showGithubMessage(error.message || "Recipes could not be published to GitHub.", true);
+    }
+  });
+}
+
+async function loadInitialRecipes() {
   try {
-    selectedImageData = await readImageFileAsDataURL(file);
-    removeCurrentImage = false;
-    showImagePreview(selectedImageData, editingRecipeId ? "New Replacement Image" : "Image Preview");
+    const githubRecipes = await fetchRecipesFromGithubJson(false);
+    if (githubRecipes.length) {
+      const normalized = githubRecipes.map(normalizeRecipe);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized));
+      return normalized;
+    }
   } catch (error) {
-    console.error("Image could not be loaded.", error);
-    alert("That image could not be loaded. Please try a different image.");
-    imageInput.value = "";
+    console.warn("GitHub recipe file was not loaded. Falling back to local recipes.", error);
   }
-});
 
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    try {
+      return JSON.parse(saved).map(normalizeRecipe);
+    } catch (error) {
+      console.warn("Saved recipe data was not valid JSON. Loading starter recipes.", error);
+    }
+  }
 
-function handleRecipeSave() {
+  const seeds = seedRecipes.map(normalizeRecipe);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(seeds));
+  return seeds;
+}
+
+async function handleRecipeSave() {
   if (isSavingRecipe) return;
 
   clearSaveMessage();
+  clearGithubMessage();
 
   if (typeof recipeForm.reportValidity === "function" && !recipeForm.reportValidity()) {
     return;
@@ -202,9 +357,11 @@ function handleRecipeSave() {
 
   isSavingRecipe = true;
   saveRecipeButton.disabled = true;
+  saveRecipeButton.textContent = "Saving...";
 
   try {
     const formData = new FormData(recipeForm);
+    let imagePath = await getRecipeImagePath(existingRecipe);
 
     const recipeData = {
       id: existingRecipe?.id || generateId(),
@@ -214,7 +371,7 @@ function handleRecipeSave() {
       cookTime: getFormValue(formData, "cookTime") || "—",
       servings: getFormValue(formData, "servings") || "—",
       source: getFormValue(formData, "source"),
-      image: getSavedImage(existingRecipe),
+      image: imagePath,
       ingredients: splitLines(formData.get("ingredients")),
       instructions: splitLines(formData.get("instructions")),
       notes: getFormValue(formData, "notes"),
@@ -235,19 +392,20 @@ function handleRecipeSave() {
       recipes.unshift(recipeData);
     }
 
-    const saved = saveRecipes();
-    if (!saved) {
-      showSaveMessage(
-        "The recipe could not be saved. The image may be too large for browser storage. Try a smaller image and update again.",
-        true
-      );
-      return;
-    }
+    saveLocalBackup();
+    renderRecipes();
+
+    const publishResult = await autoPublishRecipes(wasEditing ? `Updated recipe: ${recipeData.title}` : `Added recipe: ${recipeData.title}`);
 
     resetRecipeForm({ keepMessage: true });
     searchInput.value = "";
     renderRecipes();
-    showSaveMessage(wasEditing ? `"${recipeData.title}" was updated.` : `"${recipeData.title}" was saved.`);
+
+    const message = publishResult.published
+      ? `"${recipeData.title}" was ${wasEditing ? "updated" : "saved"} and published to GitHub.`
+      : `"${recipeData.title}" was ${wasEditing ? "updated" : "saved"} locally. Add GitHub settings and click Publish Current Recipes to make it public.`;
+
+    showSaveMessage(message);
 
     const updatedCard = document.getElementById(slugify(recipeData.title));
     if (updatedCard) {
@@ -257,107 +415,31 @@ function handleRecipeSave() {
     }
   } catch (error) {
     console.error("Recipe could not be saved.", error);
-    showSaveMessage("Something went wrong while saving. Check the recipe fields and try again.", true);
+    showSaveMessage(error.message || "Something went wrong while saving. Check the recipe fields and try again.", true);
   } finally {
     isSavingRecipe = false;
     saveRecipeButton.disabled = false;
+    setFormMode(editingRecipeId ? "edit" : "add", editStatusTitle.textContent);
   }
 }
 
+async function getRecipeImagePath(existingRecipe) {
+  if (removeCurrentImage) return placeholderImage;
 
-recipesGrid.addEventListener("click", (event) => {
-  const printButton = event.target.closest("[data-print-id]");
-  const editButton = event.target.closest("[data-edit-id]");
-  const deleteButton = event.target.closest("[data-delete-id]");
+  const typedPath = imagePathInput.value.trim();
 
-  if (printButton) {
-    const recipe = recipes.find((item) => item.id === printButton.dataset.printId);
-    if (recipe) printRecipe(recipe);
+  if (selectedImageFile) {
+    const settings = getGithubSettingsFromForm();
+    validateGithubSettings(settings);
+
+    const uploadedPath = await uploadImageToGitHub(selectedImageFile, settings, typedPath);
+    imagePathInput.value = uploadedPath;
+    return uploadedPath;
   }
 
-  if (editButton) {
-    startEditingRecipe(editButton.dataset.editId);
-  }
-
-  if (deleteButton) {
-    const recipe = recipes.find((item) => item.id === deleteButton.dataset.deleteId);
-    if (!recipe) return;
-
-    const confirmed = confirm(`Delete "${recipe.title}" from this cookbook?`);
-    if (!confirmed) return;
-
-    recipes = recipes.filter((item) => item.id !== recipe.id);
-    saveRecipes();
-
-    if (editingRecipeId === recipe.id) {
-      resetRecipeForm();
-    }
-
-    renderRecipes();
-  }
-});
-
-function loadRecipes() {
-  const saved = localStorage.getItem(STORAGE_KEY);
-
-  if (saved) {
-    try {
-      return JSON.parse(saved).map(normalizeRecipe);
-    } catch (error) {
-      console.warn("Saved recipe data was not valid JSON. Loading starter recipes.", error);
-    }
-  }
-
-  if (!localStorage.getItem(INIT_KEY)) {
-    localStorage.setItem(INIT_KEY, "true");
-  }
-
-  const normalizedSeeds = seedRecipes.map(normalizeRecipe);
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(normalizedSeeds));
-  } catch (error) {
-    console.warn("Starter recipes could not be saved to local storage.", error);
-  }
-  return normalizedSeeds;
-}
-
-function normalizeRecipe(recipe) {
-  return {
-    id: recipe.id || generateId(),
-    title: recipe.title || "Untitled Recipe",
-    category: recipe.category || "Family Favorite",
-    prepTime: recipe.prepTime || "—",
-    cookTime: recipe.cookTime || "—",
-    servings: recipe.servings || "—",
-    source: recipe.source || "",
-    image: recipe.image || placeholderImage,
-    ingredients: Array.isArray(recipe.ingredients) ? recipe.ingredients : splitLines(recipe.ingredients || ""),
-    instructions: Array.isArray(recipe.instructions) ? recipe.instructions : splitLines(recipe.instructions || ""),
-    notes: recipe.notes || "",
-    createdAt: recipe.createdAt || "",
-    updatedAt: recipe.updatedAt || ""
-  };
-}
-
-function saveRecipes() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes));
-    return true;
-  } catch (error) {
-    console.error("Recipes could not be saved to local storage.", error);
-    return false;
-  }
-}
-
-function splitLines(value) {
-  return String(value || "")
-    .split("\n")
-    .map((line) => line.trim())
-    .filter(Boolean);
-}
-
-function joinLines(value) {
-  return Array.isArray(value) ? value.join("\n") : String(value || "");
+  if (typedPath) return typedPath;
+  if (existingRecipe?.image) return existingRecipe.image;
+  return placeholderImage;
 }
 
 function renderRecipes() {
@@ -370,6 +452,7 @@ function renderRecipes() {
       recipe.cookTime,
       recipe.servings,
       recipe.source,
+      recipe.image,
       recipe.ingredients.join(" "),
       recipe.instructions.join(" "),
       recipe.notes
@@ -412,6 +495,7 @@ function createRecipeCard(recipe) {
           </div>
         </dl>
 
+        ${recipe.image && !recipe.image.startsWith("data:") ? `<p class="recipe-image-path"><strong>Image:</strong> ${escapeHTML(recipe.image)}</p>` : ""}
         ${sourceBlock}
 
         <section>
@@ -442,7 +526,8 @@ function startEditingRecipe(recipeId) {
   if (!recipe) return;
 
   editingRecipeId = recipe.id;
-  selectedImageData = "";
+  selectedImageFile = null;
+  selectedImagePreviewData = "";
   removeCurrentImage = false;
   editingRecipeIdInput.value = recipe.id;
 
@@ -452,6 +537,7 @@ function startEditingRecipe(recipeId) {
   recipeForm.elements.cookTime.value = recipe.cookTime || "";
   recipeForm.elements.servings.value = recipe.servings || "";
   recipeForm.elements.source.value = recipe.source || "";
+  recipeForm.elements.imagePath.value = recipe.image && !recipe.image.startsWith("data:") ? recipe.image : "";
   recipeForm.elements.ingredients.value = joinLines(recipe.ingredients);
   recipeForm.elements.instructions.value = joinLines(recipe.instructions);
   recipeForm.elements.notes.value = recipe.notes || "";
@@ -465,10 +551,12 @@ function startEditingRecipe(recipeId) {
 
 function resetRecipeForm(options = {}) {
   recipeForm.reset();
-  selectedImageData = "";
+  selectedImageFile = null;
+  selectedImagePreviewData = "";
   removeCurrentImage = false;
   editingRecipeId = "";
   editingRecipeIdInput.value = "";
+  imagePathInput.value = "";
   hideImagePreview();
   setFormMode("add");
   if (!options.keepMessage) {
@@ -482,14 +570,266 @@ function setFormMode(mode, recipeTitle = "") {
   formModeLabel.textContent = editing ? "Update a favorite" : "Preserve a favorite";
   formTitle.textContent = editing ? "Edit Recipe" : "Add a New Recipe";
   formHelpText.textContent = editing
-    ? "Make any changes you need, then save to update this recipe. Leave the image blank to keep the current one."
-    : "Recipes you add are saved in this browser using local storage.";
+    ? "Make any changes you need, then save to update this recipe. Leave the image upload blank to keep the current image."
+    : "Add a recipe, optionally upload its image to GitHub, and publish the cookbook.";
   saveRecipeButton.textContent = editing ? "Update Recipe" : "Save Recipe";
   cancelEditButton.hidden = !editing;
   editStatus.hidden = !editing;
   editStatusTitle.textContent = recipeTitle;
 }
 
+function normalizeRecipe(recipe) {
+  return {
+    id: recipe.id || generateId(),
+    title: recipe.title || "Untitled Recipe",
+    category: recipe.category || "Family Favorite",
+    prepTime: recipe.prepTime || "—",
+    cookTime: recipe.cookTime || "—",
+    servings: recipe.servings || "—",
+    source: recipe.source || "",
+    image: recipe.image || placeholderImage,
+    ingredients: Array.isArray(recipe.ingredients) ? recipe.ingredients : splitLines(recipe.ingredients || ""),
+    instructions: Array.isArray(recipe.instructions) ? recipe.instructions : splitLines(recipe.instructions || ""),
+    notes: recipe.notes || "",
+    createdAt: recipe.createdAt || "",
+    updatedAt: recipe.updatedAt || ""
+  };
+}
+
+function saveLocalBackup() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes));
+}
+
+async function autoPublishRecipes(message) {
+  const settings = getGithubSettingsFromForm();
+
+  if (!hasUsableGithubSettings(settings)) {
+    return { published: false };
+  }
+
+  try {
+    await publishRecipesToGitHub(message);
+    return { published: true };
+  } catch (error) {
+    console.error(error);
+    showGithubMessage(error.message || "The recipe was saved locally, but publishing to GitHub failed.", true);
+    return { published: false, error };
+  }
+}
+
+async function uploadImageToGitHub(file, settings, requestedPath = "") {
+  validateGithubSettings(settings);
+
+  const folder = normalizeFolder(settings.imageFolder || "images");
+  let targetPath = requestedPath.trim() || `${folder}/${sanitizeFileName(file.name)}`;
+  targetPath = normalizeRepoPath(targetPath);
+
+  if (!targetPath.startsWith(`${folder}/`)) {
+    targetPath = `${folder}/${sanitizeFileName(targetPath.split("/").pop() || file.name)}`;
+  }
+
+  const dataUrl = await readFileAsDataURL(file);
+  const base64Content = getBase64FromDataUrl(dataUrl);
+  const message = `Upload recipe image: ${targetPath}`;
+
+  await putGithubFile(targetPath, base64Content, message, settings);
+  return targetPath;
+}
+
+async function publishRecipesToGitHub(message = "Update recipe cookbook") {
+  if (isPublishing) return;
+
+  const settings = getGithubSettingsFromForm();
+  validateGithubSettings(settings);
+  saveGithubSettingsFromForm(false);
+
+  isPublishing = true;
+  togglePublishingButtons(true);
+
+  try {
+    const publicRecipes = recipes.map(normalizeRecipe);
+    const json = JSON.stringify(publicRecipes, null, 2);
+    await putGithubFile(settings.recipesPath, stringToBase64(json), message, settings);
+  } finally {
+    isPublishing = false;
+    togglePublishingButtons(false);
+  }
+}
+
+async function fetchRecipesFromGithubJson(requireSettings) {
+  const settings = getGithubSettingsFromForm();
+  const path = normalizeRepoPath(settings.recipesPath || defaultGithubSettings.recipesPath);
+
+  if (requireSettings) {
+    if (!settings.owner || !settings.repo) {
+      throw new Error("Enter your GitHub owner and repository name first.");
+    }
+  }
+
+  if (settings.owner && settings.repo) {
+    const apiPath = encodeRepoPath(path);
+    const url = `https://api.github.com/repos/${encodeURIComponent(settings.owner)}/${encodeURIComponent(settings.repo)}/contents/${apiPath}?ref=${encodeURIComponent(settings.branch || "main")}`;
+    const response = await fetch(url, {
+      headers: buildGithubHeaders(settings, false)
+    });
+
+    if (!response.ok) {
+      throw new Error(`GitHub recipe file was not found at ${path}.`);
+    }
+
+    const data = await response.json();
+    const jsonText = base64ToString(data.content || "");
+    const parsed = JSON.parse(jsonText);
+    return Array.isArray(parsed) ? parsed : [];
+  }
+
+  const response = await fetch(`${path}?v=${Date.now()}`, { cache: "no-store" });
+  if (!response.ok) throw new Error(`Recipe file was not found at ${path}.`);
+  const parsed = await response.json();
+  return Array.isArray(parsed) ? parsed : [];
+}
+
+async function putGithubFile(path, base64Content, message, settings) {
+  const cleanPath = normalizeRepoPath(path);
+  const sha = await getGithubFileSha(cleanPath, settings);
+
+  const body = {
+    message,
+    content: base64Content,
+    branch: settings.branch || "main"
+  };
+
+  if (sha) body.sha = sha;
+
+  const response = await fetch(githubContentUrl(cleanPath, settings), {
+    method: "PUT",
+    headers: buildGithubHeaders(settings, true),
+    body: JSON.stringify(body)
+  });
+
+  if (!response.ok) {
+    const details = await safeReadGithubError(response);
+    throw new Error(`GitHub upload failed for ${cleanPath}. ${details}`.trim());
+  }
+
+  return response.json();
+}
+
+async function getGithubFileSha(path, settings) {
+  const response = await fetch(`${githubContentUrl(path, settings)}?ref=${encodeURIComponent(settings.branch || "main")}`, {
+    headers: buildGithubHeaders(settings, true)
+  });
+
+  if (response.status === 404) return "";
+
+  if (!response.ok) {
+    const details = await safeReadGithubError(response);
+    throw new Error(`Could not check existing GitHub file ${path}. ${details}`.trim());
+  }
+
+  const data = await response.json();
+  return data.sha || "";
+}
+
+function githubContentUrl(path, settings) {
+  return `https://api.github.com/repos/${encodeURIComponent(settings.owner)}/${encodeURIComponent(settings.repo)}/contents/${encodeRepoPath(path)}`;
+}
+
+function buildGithubHeaders(settings, requireToken) {
+  const headers = {
+    Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28"
+  };
+
+  if (settings.token) {
+    headers.Authorization = `Bearer ${settings.token}`;
+  } else if (requireToken) {
+    throw new Error("Enter a GitHub token with repository contents read/write permission.");
+  }
+
+  return headers;
+}
+
+async function safeReadGithubError(response) {
+  try {
+    const error = await response.json();
+    return error.message ? `GitHub says: ${error.message}` : "";
+  } catch {
+    return `${response.status} ${response.statusText}`;
+  }
+}
+
+function validateGithubSettings(settings) {
+  if (!settings.owner) throw new Error("Enter your GitHub owner / username.");
+  if (!settings.repo) throw new Error("Enter your GitHub repository name.");
+  if (!settings.branch) throw new Error("Enter your GitHub branch, usually main.");
+  if (!settings.imageFolder) throw new Error("Enter the image folder. Use images.");
+  if (normalizeFolder(settings.imageFolder) !== "images") {
+    throw new Error("The image folder must be images so recipe photos save as images/filename.png.");
+  }
+  if (!settings.recipesPath) throw new Error("Enter the recipes JSON file path, usually data/recipes.json.");
+  if (!settings.token) throw new Error("Enter a GitHub fine-grained token with repository contents read/write permission.");
+}
+
+function hasUsableGithubSettings(settings) {
+  return Boolean(settings.owner && settings.repo && settings.branch && settings.imageFolder && settings.recipesPath && settings.token);
+}
+
+function loadGithubSettingsIntoForm() {
+  const settings = getSavedGithubSettings();
+  githubOwnerInput.value = settings.owner;
+  githubRepoInput.value = settings.repo;
+  githubBranchInput.value = settings.branch || "main";
+  githubImageFolderInput.value = settings.imageFolder || "images";
+  githubRecipesPathInput.value = settings.recipesPath || "data/recipes.json";
+  githubTokenInput.value = settings.token || "";
+}
+
+function saveGithubSettingsFromForm(showMessage = true) {
+  const settings = getGithubSettingsFromForm();
+  localStorage.setItem(GITHUB_SETTINGS_KEY, JSON.stringify(settings));
+  if (showMessage) showGithubMessage("GitHub settings saved on this browser.");
+}
+
+function getSavedGithubSettings() {
+  const saved = localStorage.getItem(GITHUB_SETTINGS_KEY);
+  if (!saved) return { ...defaultGithubSettings };
+
+  try {
+    return { ...defaultGithubSettings, ...JSON.parse(saved) };
+  } catch {
+    return { ...defaultGithubSettings };
+  }
+}
+
+function getGithubSettingsFromForm() {
+  return {
+    owner: githubOwnerInput.value.trim(),
+    repo: githubRepoInput.value.trim(),
+    branch: githubBranchInput.value.trim() || "main",
+    imageFolder: normalizeFolder(githubImageFolderInput.value.trim() || "images"),
+    recipesPath: normalizeRepoPath(githubRecipesPathInput.value.trim() || "data/recipes.json"),
+    token: githubTokenInput.value.trim()
+  };
+}
+
+function togglePublishingButtons(disabled) {
+  publishRecipesButton.disabled = disabled;
+  loadGithubRecipesButton.disabled = disabled;
+  saveGithubSettingsButton.disabled = disabled;
+  saveRecipeButton.disabled = disabled || isSavingRecipe;
+}
+
+function splitLines(value) {
+  return String(value || "")
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+}
+
+function joinLines(value) {
+  return Array.isArray(value) ? value.join("\n") : String(value || "");
+}
 
 function getFormValue(formData, name) {
   return String(formData.get(name) || "").trim();
@@ -507,11 +847,16 @@ function clearSaveMessage() {
   saveMessage.classList.remove("error");
 }
 
-function getSavedImage(existingRecipe) {
-  if (removeCurrentImage) return placeholderImage;
-  if (selectedImageData) return selectedImageData;
-  if (existingRecipe?.image) return existingRecipe.image;
-  return placeholderImage;
+function showGithubMessage(message, isError = false) {
+  if (!githubMessage) return;
+  githubMessage.textContent = message;
+  githubMessage.classList.toggle("error", isError);
+}
+
+function clearGithubMessage() {
+  if (!githubMessage) return;
+  githubMessage.textContent = "";
+  githubMessage.classList.remove("error");
 }
 
 function showImagePreview(src, title) {
@@ -543,60 +888,17 @@ function printRecipe(recipe) {
       <meta charset="utf-8" />
       <title>${escapeHTML(recipe.title)}</title>
       <style>
-        body {
-          color: #2f241c;
-          font-family: Georgia, "Times New Roman", serif;
-          line-height: 1.5;
-          margin: 36px;
-        }
-        img {
-          width: 100%;
-          max-height: 320px;
-          object-fit: cover;
-          border-radius: 18px;
-          margin: 18px 0;
-        }
-        h1 {
-          margin: 0 0 8px;
-          font-size: 42px;
-        }
-        .category {
-          color: #8a3d24;
-          font-family: Arial, Helvetica, sans-serif;
-          font-weight: 800;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-        }
-        .meta {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 10px;
-          margin: 18px 0;
-        }
-        .meta div {
-          border: 1px solid #eadcc9;
-          border-radius: 12px;
-          padding: 10px;
-        }
-        h2 {
-          color: #5d2818;
-          margin-top: 24px;
-        }
-        li {
-          margin-bottom: 6px;
-        }
-        .source {
-          color: #75685e;
-          margin: 10px 0 0;
-        }
-        .notes {
-          border-left: 4px solid #c7934a;
-          padding-left: 14px;
-          font-style: italic;
-        }
-        @page {
-          margin: 0.65in;
-        }
+        body { color: #2f241c; font-family: Georgia, "Times New Roman", serif; line-height: 1.5; margin: 36px; }
+        img { width: 100%; max-height: 320px; object-fit: cover; border-radius: 18px; margin: 18px 0; }
+        h1 { margin: 0 0 8px; font-size: 42px; }
+        .category { color: #8a3d24; font-family: Arial, Helvetica, sans-serif; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+        .meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 18px 0; }
+        .meta div { border: 1px solid #eadcc9; border-radius: 12px; padding: 10px; }
+        h2 { color: #5d2818; margin-top: 24px; }
+        li { margin-bottom: 6px; }
+        .source { color: #75685e; margin: 10px 0 0; }
+        .notes { border-left: 4px solid #c7934a; padding-left: 14px; font-style: italic; }
+        @page { margin: 0.65in; }
       </style>
     </head>
     <body>
@@ -629,39 +931,6 @@ function printRecipe(recipe) {
   };
 }
 
-
-async function readImageFileAsDataURL(file) {
-  const dataUrl = await readFileAsDataURL(file);
-  return resizeImageDataURL(dataUrl, 1400, 0.82);
-}
-
-function resizeImageDataURL(dataUrl, maxSize, quality) {
-  return new Promise((resolve) => {
-    const image = new Image();
-
-    image.onload = () => {
-      const largestSide = Math.max(image.width, image.height);
-
-      if (largestSide <= maxSize && dataUrl.length < 1000000) {
-        resolve(dataUrl);
-        return;
-      }
-
-      const scale = Math.min(1, maxSize / largestSide);
-      const canvas = document.createElement("canvas");
-      canvas.width = Math.max(1, Math.round(image.width * scale));
-      canvas.height = Math.max(1, Math.round(image.height * scale));
-
-      const context = canvas.getContext("2d");
-      context.drawImage(image, 0, 0, canvas.width, canvas.height);
-      resolve(canvas.toDataURL("image/jpeg", quality));
-    };
-
-    image.onerror = () => resolve(dataUrl);
-    image.src = dataUrl;
-  });
-}
-
 function readFileAsDataURL(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -669,6 +938,55 @@ function readFileAsDataURL(file) {
     reader.onerror = reject;
     reader.readAsDataURL(file);
   });
+}
+
+function getBase64FromDataUrl(dataUrl) {
+  return String(dataUrl).split(",")[1] || "";
+}
+
+function stringToBase64(value) {
+  const bytes = new TextEncoder().encode(value);
+  let binary = "";
+  const chunkSize = 0x8000;
+
+  for (let index = 0; index < bytes.length; index += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + chunkSize));
+  }
+
+  return btoa(binary);
+}
+
+function base64ToString(value) {
+  const cleaned = String(value || "").replace(/\s/g, "");
+  const binary = atob(cleaned);
+  const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+function sanitizeFileName(fileName) {
+  const original = String(fileName || "recipe-image.png").trim();
+  const lastDot = original.lastIndexOf(".");
+  const rawName = lastDot > 0 ? original.slice(0, lastDot) : original;
+  const rawExtension = lastDot > 0 ? original.slice(lastDot + 1) : "png";
+  const safeName = slugify(rawName) || "recipe-image";
+  const safeExtension = rawExtension.toLowerCase().replace(/[^a-z0-9]/g, "") || "png";
+  return `${safeName}.${safeExtension}`;
+}
+
+function normalizeFolder(value) {
+  return normalizeRepoPath(value || "images").replace(/\/$/, "");
+}
+
+function normalizeRepoPath(value) {
+  return String(value || "")
+    .replace(/\\/g, "/")
+    .replace(/^\/+/, "")
+    .replace(/\/+/g, "/")
+    .trim();
+}
+
+function encodeRepoPath(path) {
+  return normalizeRepoPath(path).split("/").map(encodeURIComponent).join("/");
 }
 
 function generateId() {
