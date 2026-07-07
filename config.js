@@ -13,8 +13,8 @@
 */
 window.COOKBOOK_CONFIG = {
   githubOwner: "redmarine84",
-  githubRepo: "YOUR_RECIPE_REPOSITORY_NAME_HERE",
-  githubBranch: "main",
+  githubRepo: "redmarine84.github.io",
+  githubBranch: "master",
   imageFolder: "images",
   recipesPath: "data/recipes.json"
 };
