@@ -1,12 +1,14 @@
 const STORAGE_KEY = "mcintyreRecipeBook.recipes";
 const GITHUB_SETTINGS_KEY = "mcintyreRecipeBook.githubSettings";
 
+const siteConfig = window.COOKBOOK_CONFIG || {};
+
 const defaultGithubSettings = {
-  owner: "",
-  repo: "",
-  branch: "main",
-  imageFolder: "images",
-  recipesPath: "data/recipes.json",
+  owner: siteConfig.githubOwner || "",
+  repo: siteConfig.githubRepo || "",
+  branch: siteConfig.githubBranch || "main",
+  imageFolder: siteConfig.imageFolder || "images",
+  recipesPath: siteConfig.recipesPath || "data/recipes.json",
   token: ""
 };
 
@@ -278,7 +280,7 @@ function bindEvents() {
 
   saveGithubSettingsButton.addEventListener("click", () => {
     saveGithubSettingsFromForm();
-    showGithubMessage("GitHub settings saved on this browser.");
+    showGithubMessage("Editor token saved on this browser.");
   });
 
   loadGithubRecipesButton.addEventListener("click", async () => {
@@ -403,7 +405,7 @@ async function handleRecipeSave() {
 
     const message = publishResult.published
       ? `"${recipeData.title}" was ${wasEditing ? "updated" : "saved"} and published to GitHub.`
-      : `"${recipeData.title}" was ${wasEditing ? "updated" : "saved"} locally. Add GitHub settings and click Publish Current Recipes to make it public.`;
+      : `"${recipeData.title}" was ${wasEditing ? "updated" : "saved"} locally. Enter the editor token and click Publish Current Recipes to make it public.`;
 
     showSaveMessage(message);
 
@@ -661,12 +663,12 @@ async function fetchRecipesFromGithubJson(requireSettings) {
   const path = normalizeRepoPath(settings.recipesPath || defaultGithubSettings.recipesPath);
 
   if (requireSettings) {
-    if (!settings.owner || !settings.repo) {
-      throw new Error("Enter your GitHub owner and repository name first.");
+    if (isPlaceholderRepoValue(settings.owner) || isPlaceholderRepoValue(settings.repo)) {
+      throw new Error("Set githubOwner and githubRepo in config.js first.");
     }
   }
 
-  if (settings.owner && settings.repo) {
+  if (!isPlaceholderRepoValue(settings.owner) && !isPlaceholderRepoValue(settings.repo)) {
     const apiPath = encodeRepoPath(path);
     const url = `https://api.github.com/repos/${encodeURIComponent(settings.owner)}/${encodeURIComponent(settings.repo)}/contents/${apiPath}?ref=${encodeURIComponent(settings.branch || "main")}`;
     const response = await fetch(url, {
@@ -744,7 +746,7 @@ function buildGithubHeaders(settings, requireToken) {
   if (settings.token) {
     headers.Authorization = `Bearer ${settings.token}`;
   } else if (requireToken) {
-    throw new Error("Enter a GitHub token with repository contents read/write permission.");
+    throw new Error("Enter the editor GitHub token with repository contents read/write permission.");
   }
 
   return headers;
@@ -759,16 +761,20 @@ async function safeReadGithubError(response) {
   }
 }
 
+function isPlaceholderRepoValue(value) {
+  return !value || value.includes("YOUR_RECIPE_REPOSITORY_NAME_HERE") || value.includes("YOUR_");
+}
+
 function validateGithubSettings(settings) {
-  if (!settings.owner) throw new Error("Enter your GitHub owner / username.");
-  if (!settings.repo) throw new Error("Enter your GitHub repository name.");
-  if (!settings.branch) throw new Error("Enter your GitHub branch, usually main.");
-  if (!settings.imageFolder) throw new Error("Enter the image folder. Use images.");
+  if (isPlaceholderRepoValue(settings.owner)) throw new Error("Set githubOwner in config.js to your actual GitHub username first.");
+  if (isPlaceholderRepoValue(settings.repo)) throw new Error("Set githubRepo in config.js to your actual repository name first.");
+  if (!settings.branch) throw new Error("Set githubBranch in config.js first, usually main.");
+  if (!settings.imageFolder) throw new Error("Set imageFolder in config.js first. Use images.");
   if (normalizeFolder(settings.imageFolder) !== "images") {
     throw new Error("The image folder must be images so recipe photos save as images/filename.png.");
   }
-  if (!settings.recipesPath) throw new Error("Enter the recipes JSON file path, usually data/recipes.json.");
-  if (!settings.token) throw new Error("Enter a GitHub fine-grained token with repository contents read/write permission.");
+  if (!settings.recipesPath) throw new Error("Set recipesPath in config.js first, usually data/recipes.json.");
+  if (!settings.token) throw new Error("Enter the editor GitHub token with repository contents read/write permission.");
 }
 
 function hasUsableGithubSettings(settings) {
@@ -788,7 +794,7 @@ function loadGithubSettingsIntoForm() {
 function saveGithubSettingsFromForm(showMessage = true) {
   const settings = getGithubSettingsFromForm();
   localStorage.setItem(GITHUB_SETTINGS_KEY, JSON.stringify(settings));
-  if (showMessage) showGithubMessage("GitHub settings saved on this browser.");
+  if (showMessage) showGithubMessage("Editor token saved on this browser.");
 }
 
 function getSavedGithubSettings() {
