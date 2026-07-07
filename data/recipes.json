@@ -34,7 +34,9 @@
       "Add carrots and potatoes. Cover and cook for 30 more minutes. Add hot water as needed if the stew gets too thick.",
       "Taste and adjust seasoning. Serve with crusty bread and minced parsley if desired."
     ],
-    "notes": "Recipe can be doubled or tripled if needed."
+    "notes": "Recipe can be doubled or tripled if needed.",
+    "createdAt": "",
+    "updatedAt": ""
   },
   {
     "id": "pin-wheels",
@@ -44,7 +46,7 @@
     "cookTime": "Chill 30 minutes",
     "servings": "6",
     "source": "Family favorite",
-    "image": "https://images.unsplash.com/photo-1625944525533-473f1a3d54e7?auto=format&fit=crop&w=900&q=80",
+    "image": "images/chatgpt-image-jul-7-2026-03-10-06-pm.png",
     "ingredients": [
       "2 packages cream cheese, 8 oz each, softened",
       "1 package ranch salad dressing mix, 1 oz",
@@ -59,7 +61,9 @@
       "Roll tortillas tightly and wrap in plastic wrap. Refrigerate until firm, about 30 minutes.",
       "Unwrap and cut into 3/4-inch slices."
     ],
-    "notes": "Great make-ahead party snack."
+    "notes": "Great make-ahead party snack.",
+    "createdAt": "2026-07-07T20:46:43.768Z",
+    "updatedAt": "2026-07-07T20:46:43.768Z"
   },
   {
     "id": "taco-rolls",
@@ -83,6 +87,8 @@
       "Place 2 spoonfuls of taco meat on each crescent roll, add cheese, and roll up.",
       "Bake for 15 minutes or until the crescent rolls are golden brown."
     ],
-    "notes": "Serve with salsa, sour cream, or guacamole."
+    "notes": "Serve with salsa, sour cream, or guacamole.",
+    "createdAt": "",
+    "updatedAt": ""
   }
 ]
