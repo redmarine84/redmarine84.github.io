@@ -15,12 +15,13 @@ const placeholderImage =
 
 const seedRecipes = [
   {
-    id: crypto.randomUUID(),
+    id: generateId(),
     title: "Beef Stew",
     category: "Dinner",
     prepTime: "10 minutes",
     cookTime: "150 minutes",
     servings: "6",
+    source: "Original starter recipe",
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Cooked_mechado.JPG/640px-Cooked_mechado.JPG",
     ingredients: [
       "3 Tbsp olive oil",
@@ -51,12 +52,13 @@ const seedRecipes = [
     notes: "Recipe can be doubled or tripled if needed."
   },
   {
-    id: crypto.randomUUID(),
+    id: generateId(),
     title: "Pin Wheels",
     category: "Appetizer",
     prepTime: "15 minutes",
     cookTime: "Chill 30 minutes",
     servings: "6",
+    source: "Family favorite",
     image: "https://images.unsplash.com/photo-1625944525533-473f1a3d54e7?auto=format&fit=crop&w=900&q=80",
     ingredients: [
       "2 packages cream cheese, 8 oz each, softened",
@@ -75,12 +77,13 @@ const seedRecipes = [
     notes: "Great make-ahead party snack."
   },
   {
-    id: crypto.randomUUID(),
+    id: generateId(),
     title: "Taco Rolls",
     category: "Dinner",
     prepTime: "15 minutes",
     cookTime: "15 minutes",
     servings: "8",
+    source: "Family favorite",
     image: "https://images.unsplash.com/photo-1613514785940-daed07799d9b?auto=format&fit=crop&w=900&q=80",
     ingredients: [
       "1 pound ground beef",
@@ -101,6 +104,8 @@ const seedRecipes = [
 
 let recipes = loadRecipes();
 let selectedImageData = "";
+let removeCurrentImage = false;
+let editingRecipeId = "";
 
 const recipesGrid = document.querySelector("#recipes-grid");
 const recipeCount = document.querySelector("#recipe-count");
@@ -110,20 +115,44 @@ const recipeForm = document.querySelector("#recipe-form");
 const imageInput = document.querySelector("#recipe-image");
 const imagePreviewWrap = document.querySelector("#image-preview-wrap");
 const imagePreview = document.querySelector("#image-preview");
+const imagePreviewTitle = document.querySelector("#image-preview-title");
 const currentYear = document.querySelector("#current-year");
+const editingRecipeIdInput = document.querySelector("#editing-recipe-id");
+const formModeLabel = document.querySelector("#form-mode-label");
+const formTitle = document.querySelector("#add-recipe-title");
+const formHelpText = document.querySelector("#form-help-text");
+const editStatus = document.querySelector("#edit-status");
+const editStatusTitle = document.querySelector("#edit-status-title");
+const saveRecipeButton = document.querySelector("#save-recipe-button");
+const cancelEditButton = document.querySelector("#cancel-edit-button");
+const removeImageButton = document.querySelector("#remove-image-button");
 
 currentYear.textContent = new Date().getFullYear();
 renderRecipes();
 
 searchInput.addEventListener("input", renderRecipes);
+cancelEditButton.addEventListener("click", resetRecipeForm);
+removeImageButton.addEventListener("click", () => {
+  selectedImageData = "";
+  removeCurrentImage = true;
+  imageInput.value = "";
+  showImagePreview(placeholderImage, "Placeholder Image");
+});
 
 imageInput.addEventListener("change", async (event) => {
   const file = event.target.files[0];
 
   if (!file) {
     selectedImageData = "";
-    imagePreviewWrap.hidden = true;
-    imagePreview.removeAttribute("src");
+    removeCurrentImage = false;
+
+    if (editingRecipeId) {
+      const recipe = recipes.find((item) => item.id === editingRecipeId);
+      showImagePreview(recipe?.image || placeholderImage, "Current Image");
+    } else {
+      hideImagePreview();
+    }
+
     return;
   }
 
@@ -134,45 +163,65 @@ imageInput.addEventListener("change", async (event) => {
   }
 
   selectedImageData = await readFileAsDataURL(file);
-  imagePreview.src = selectedImageData;
-  imagePreviewWrap.hidden = false;
+  removeCurrentImage = false;
+  showImagePreview(selectedImageData, editingRecipeId ? "New Replacement Image" : "Image Preview");
 });
 
 recipeForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const formData = new FormData(recipeForm);
-  const newRecipe = {
-    id: crypto.randomUUID(),
+  const existingRecipe = editingRecipeId
+    ? recipes.find((item) => item.id === editingRecipeId)
+    : null;
+
+  const recipeData = {
+    id: existingRecipe?.id || generateId(),
     title: formData.get("title").trim(),
     category: formData.get("category").trim() || "Family Favorite",
     prepTime: formData.get("prepTime").trim() || "—",
     cookTime: formData.get("cookTime").trim() || "—",
     servings: formData.get("servings").trim() || "—",
-    image: selectedImageData || placeholderImage,
+    source: formData.get("source").trim(),
+    image: getSavedImage(existingRecipe),
     ingredients: splitLines(formData.get("ingredients")),
     instructions: splitLines(formData.get("instructions")),
-    notes: formData.get("notes").trim()
+    notes: formData.get("notes").trim(),
+    updatedAt: new Date().toISOString(),
+    createdAt: existingRecipe?.createdAt || new Date().toISOString()
   };
 
-  recipes.unshift(newRecipe);
+  if (existingRecipe) {
+    recipes = recipes.map((recipe) => (recipe.id === existingRecipe.id ? recipeData : recipe));
+  } else {
+    recipes.unshift(recipeData);
+  }
+
   saveRecipes();
-  recipeForm.reset();
-  selectedImageData = "";
-  imagePreviewWrap.hidden = true;
-  imagePreview.removeAttribute("src");
+  resetRecipeForm();
   searchInput.value = "";
   renderRecipes();
-  document.querySelector("#recipes").scrollIntoView({ behavior: "smooth" });
+
+  const updatedCard = document.getElementById(slugify(recipeData.title));
+  if (updatedCard) {
+    updatedCard.scrollIntoView({ behavior: "smooth", block: "start" });
+  } else {
+    document.querySelector("#recipes").scrollIntoView({ behavior: "smooth" });
+  }
 });
 
 recipesGrid.addEventListener("click", (event) => {
   const printButton = event.target.closest("[data-print-id]");
+  const editButton = event.target.closest("[data-edit-id]");
   const deleteButton = event.target.closest("[data-delete-id]");
 
   if (printButton) {
     const recipe = recipes.find((item) => item.id === printButton.dataset.printId);
     if (recipe) printRecipe(recipe);
+  }
+
+  if (editButton) {
+    startEditingRecipe(editButton.dataset.editId);
   }
 
   if (deleteButton) {
@@ -184,6 +233,11 @@ recipesGrid.addEventListener("click", (event) => {
 
     recipes = recipes.filter((item) => item.id !== recipe.id);
     saveRecipes();
+
+    if (editingRecipeId === recipe.id) {
+      resetRecipeForm();
+    }
+
     renderRecipes();
   }
 });
@@ -193,7 +247,7 @@ function loadRecipes() {
 
   if (saved) {
     try {
-      return JSON.parse(saved);
+      return JSON.parse(saved).map(normalizeRecipe);
     } catch (error) {
       console.warn("Saved recipe data was not valid JSON. Loading starter recipes.", error);
     }
@@ -203,8 +257,27 @@ function loadRecipes() {
     localStorage.setItem(INIT_KEY, "true");
   }
 
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(seedRecipes));
-  return seedRecipes;
+  const normalizedSeeds = seedRecipes.map(normalizeRecipe);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(normalizedSeeds));
+  return normalizedSeeds;
+}
+
+function normalizeRecipe(recipe) {
+  return {
+    id: recipe.id || generateId(),
+    title: recipe.title || "Untitled Recipe",
+    category: recipe.category || "Family Favorite",
+    prepTime: recipe.prepTime || "—",
+    cookTime: recipe.cookTime || "—",
+    servings: recipe.servings || "—",
+    source: recipe.source || "",
+    image: recipe.image || placeholderImage,
+    ingredients: Array.isArray(recipe.ingredients) ? recipe.ingredients : splitLines(recipe.ingredients || ""),
+    instructions: Array.isArray(recipe.instructions) ? recipe.instructions : splitLines(recipe.instructions || ""),
+    notes: recipe.notes || "",
+    createdAt: recipe.createdAt || "",
+    updatedAt: recipe.updatedAt || ""
+  };
 }
 
 function saveRecipes() {
@@ -212,10 +285,14 @@ function saveRecipes() {
 }
 
 function splitLines(value) {
-  return value
+  return String(value || "")
     .split("\n")
     .map((line) => line.trim())
     .filter(Boolean);
+}
+
+function joinLines(value) {
+  return Array.isArray(value) ? value.join("\n") : String(value || "");
 }
 
 function renderRecipes() {
@@ -227,6 +304,7 @@ function renderRecipes() {
       recipe.prepTime,
       recipe.cookTime,
       recipe.servings,
+      recipe.source,
       recipe.ingredients.join(" "),
       recipe.instructions.join(" "),
       recipe.notes
@@ -243,6 +321,10 @@ function renderRecipes() {
 }
 
 function createRecipeCard(recipe) {
+  const sourceBlock = recipe.source
+    ? `<p class="recipe-source"><strong>Source:</strong> ${escapeHTML(recipe.source)}</p>`
+    : "";
+
   return `
     <article class="recipe-card" id="${slugify(recipe.title)}">
       <img class="recipe-image" src="${escapeAttribute(recipe.image || placeholderImage)}" alt="${escapeAttribute(recipe.title)}" loading="lazy" />
@@ -265,6 +347,8 @@ function createRecipeCard(recipe) {
           </div>
         </dl>
 
+        ${sourceBlock}
+
         <section>
           <h4>Ingredients</h4>
           <ul>${recipe.ingredients.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul>
@@ -278,12 +362,82 @@ function createRecipeCard(recipe) {
         ${recipe.notes ? `<p class="recipe-notes">${escapeHTML(recipe.notes)}</p>` : ""}
 
         <div class="recipe-actions">
-          <button class="secondary-button" type="button" data-print-id="${recipe.id}">Print Recipe</button>
-          <button class="danger-button" type="button" data-delete-id="${recipe.id}">Delete</button>
+          <button class="secondary-button" type="button" data-edit-id="${escapeAttribute(recipe.id)}">Edit Recipe</button>
+          <button class="secondary-button" type="button" data-print-id="${escapeAttribute(recipe.id)}">Print Recipe</button>
+          <button class="danger-button" type="button" data-delete-id="${escapeAttribute(recipe.id)}">Delete</button>
         </div>
       </div>
     </article>
   `;
+}
+
+function startEditingRecipe(recipeId) {
+  const recipe = recipes.find((item) => item.id === recipeId);
+  if (!recipe) return;
+
+  editingRecipeId = recipe.id;
+  selectedImageData = "";
+  removeCurrentImage = false;
+  editingRecipeIdInput.value = recipe.id;
+
+  recipeForm.elements.title.value = recipe.title || "";
+  recipeForm.elements.category.value = recipe.category || "";
+  recipeForm.elements.prepTime.value = recipe.prepTime || "";
+  recipeForm.elements.cookTime.value = recipe.cookTime || "";
+  recipeForm.elements.servings.value = recipe.servings || "";
+  recipeForm.elements.source.value = recipe.source || "";
+  recipeForm.elements.ingredients.value = joinLines(recipe.ingredients);
+  recipeForm.elements.instructions.value = joinLines(recipe.instructions);
+  recipeForm.elements.notes.value = recipe.notes || "";
+  imageInput.value = "";
+
+  showImagePreview(recipe.image || placeholderImage, "Current Image");
+  setFormMode("edit", recipe.title);
+  document.querySelector("#add-recipe").scrollIntoView({ behavior: "smooth", block: "start" });
+  setTimeout(() => recipeForm.elements.title.focus(), 350);
+}
+
+function resetRecipeForm() {
+  recipeForm.reset();
+  selectedImageData = "";
+  removeCurrentImage = false;
+  editingRecipeId = "";
+  editingRecipeIdInput.value = "";
+  hideImagePreview();
+  setFormMode("add");
+}
+
+function setFormMode(mode, recipeTitle = "") {
+  const editing = mode === "edit";
+
+  formModeLabel.textContent = editing ? "Update a favorite" : "Preserve a favorite";
+  formTitle.textContent = editing ? "Edit Recipe" : "Add a New Recipe";
+  formHelpText.textContent = editing
+    ? "Make any changes you need, then save to update this recipe. Leave the image blank to keep the current one."
+    : "Recipes you add are saved in this browser using local storage.";
+  saveRecipeButton.textContent = editing ? "Update Recipe" : "Save Recipe";
+  cancelEditButton.hidden = !editing;
+  editStatus.hidden = !editing;
+  editStatusTitle.textContent = recipeTitle;
+}
+
+function getSavedImage(existingRecipe) {
+  if (removeCurrentImage) return placeholderImage;
+  if (selectedImageData) return selectedImageData;
+  if (existingRecipe?.image) return existingRecipe.image;
+  return placeholderImage;
+}
+
+function showImagePreview(src, title) {
+  imagePreviewTitle.textContent = title;
+  imagePreview.src = src;
+  imagePreviewWrap.hidden = false;
+}
+
+function hideImagePreview() {
+  imagePreviewWrap.hidden = true;
+  imagePreview.removeAttribute("src");
+  imagePreviewTitle.textContent = "Image Preview";
 }
 
 function printRecipe(recipe) {
@@ -345,6 +499,10 @@ function printRecipe(recipe) {
         li {
           margin-bottom: 6px;
         }
+        .source {
+          color: #75685e;
+          margin: 10px 0 0;
+        }
         .notes {
           border-left: 4px solid #c7934a;
           padding-left: 14px;
@@ -358,6 +516,7 @@ function printRecipe(recipe) {
     <body>
       <p class="category">${escapeHTML(recipe.category || "Family Favorite")}</p>
       <h1>${escapeHTML(recipe.title)}</h1>
+      ${recipe.source ? `<p class="source"><strong>Source:</strong> ${escapeHTML(recipe.source)}</p>` : ""}
       <img src="${escapeAttribute(recipe.image || placeholderImage)}" alt="${escapeAttribute(recipe.title)}" />
       <section class="meta">
         <div><strong>Prep:</strong><br>${escapeHTML(recipe.prepTime || "—")}</div>
@@ -393,12 +552,22 @@ function readFileAsDataURL(file) {
   });
 }
 
+function generateId() {
+  if (window.crypto && typeof window.crypto.randomUUID === "function") {
+    return window.crypto.randomUUID();
+  }
+
+  return `recipe-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+}
+
 function slugify(value) {
-  return value
+  const slug = String(value || "recipe")
     .toLowerCase()
     .trim()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+
+  return slug || "recipe";
 }
 
 function escapeHTML(value = "") {
