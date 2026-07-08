@@ -1,5 +1,39 @@
 [
   {
+    "id": "553a6a3f-0e97-49fe-9cf6-8efebbaed091",
+    "title": "Chicken Broccoli Casserole",
+    "category": "Dinner",
+    "prepTime": "25 min",
+    "cookTime": "10 - 15 min",
+    "servings": "10",
+    "source": "Grandma",
+    "image": "images/chicken-broccoli-casserole.png",
+    "ingredients": [
+      "4 Chicken leg quarters",
+      "1 can Cream of (Chicken or Mushroom) soup",
+      "3 Tbsp Mayo or Sour cream or 1 1/2 Tbsp of each. (Grandma preferred Mayo)",
+      "16 oz chopped Broccoli",
+      "3 cups Bread crumbs",
+      "2 cups Shredded Cheese",
+      "4 Tbsp butter",
+      "Salt and Pepper to taste"
+    ],
+    "instructions": [
+      "Preheat oven to 350°",
+      "Boil Chicken until done, then remove from bone.",
+      "Put chicken in bottom of casserole dish and add salt and pepper.",
+      "Top chicken with broccoli",
+      "Mix Soup and mayo together and add enough water to make it easy to spread over broccoli.",
+      "Spread mayo mixture over top broccoli.",
+      "Top with breadcrumbs and cheese.",
+      "Melt butter and pour over top.",
+      "Bake until cheese is melted."
+    ],
+    "notes": "",
+    "createdAt": "2026-07-08T02:06:02.908Z",
+    "updatedAt": "2026-07-08T02:06:02.908Z"
+  },
+  {
     "id": "371587c9-e4bb-41ba-8ce5-aea3c083114e",
     "title": "Do Lolly",
     "category": "Dinner",
