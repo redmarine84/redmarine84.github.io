@@ -1,5 +1,36 @@
 [
   {
+    "id": "cc7c424a-2091-451d-a1e1-2a36073d8eca",
+    "title": "Pecan Encrusted Chicken",
+    "category": "Dinner",
+    "prepTime": "20 min",
+    "cookTime": "20 - 25 min",
+    "servings": "6 - 8",
+    "source": "Grandma",
+    "image": "images/pecan-encrusted-chicken.png",
+    "ingredients": [
+      "1 cup Seasoned Bread crumbs",
+      "3/4 cup crushed pecans",
+      "6 - 8 Slices of Sharp Cheddar Cheese / 1 cup Shredded Cheese",
+      "1/2 Cup Margarine / Butter",
+      "1 - 2 Large Eggs, beaten",
+      "6 - 8 Boneless Chicken Breast",
+      "Salt and Pepper to taste"
+    ],
+    "instructions": [
+      "Preheat Oven to  350°",
+      "Flatten Chicken breast to about 1/8 inch thickness (Use heavy skillet and Ziplock bag)",
+      "Place 1 slice of cheese, a tsp or margarine/butter, salt and pepper on each Flatten chicken breast.",
+      "Mix Breadcrumbs and crushed pecans.",
+      "Dip Chicken in beaten egg then in breadcrumb mixture.",
+      "Sauté chicken in margarine on Medium Heat until Lightly browned on both sides (About 2 - 3 mins per side)",
+      "Place chicken in a lightly greased 10 x 15 baking dish and bake 20 - 25 mins."
+    ],
+    "notes": "",
+    "createdAt": "2026-07-08T23:48:55.624Z",
+    "updatedAt": "2026-07-08T23:48:55.624Z"
+  },
+  {
     "id": "553a6a3f-0e97-49fe-9cf6-8efebbaed091",
     "title": "Chicken Broccoli Casserole",
     "category": "Dinner",
