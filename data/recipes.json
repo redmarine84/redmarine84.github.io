@@ -1,5 +1,44 @@
 [
   {
+    "id": "e728642e-3dff-4f5b-b816-4f4335d08d11",
+    "title": "Dressing",
+    "category": "Holiday",
+    "prepTime": "45 min",
+    "cookTime": "1 hour",
+    "servings": "24",
+    "source": "Grandma",
+    "image": "images/dressing.png",
+    "ingredients": [
+      "---------- FOR CORN BREAD ----------",
+      "1/4 cup Vegetable oil",
+      "1 tsp baking powder",
+      "2 cups corn meal",
+      "3 cups flour",
+      "Milk (amount needed)",
+      "------------------------------------------------------",
+      "7 Lb Whole chicken",
+      "12-14 Boiled Eggs (Chopped)",
+      "2 cups Diced Onions",
+      "2 stalks of Celery (Diced)",
+      "1 stick butter/margarine",
+      "1 - 2 slices of toast (1/2 cup bread crumbs) (if needed)",
+      "Salt and pepper to taste"
+    ],
+    "instructions": [
+      "Preheat oven to 425°",
+      "Cook Cornbread in 9x12 pan about 20 min or until done and golden brown.",
+      "Cook chicken in large pot until done and tender.",
+      "Shred chicken into large bowl.",
+      "Crumble Corn bread and bread crumbs into the large bowl.",
+      "Add onions, eggs, celery, salt, pepper and rest of ingredients.",
+      "Add Broth until the right consistency is reached.",
+      "Pour mixture in DEEP pan at least 3 to 4 inches deep and bake at 425° until lightly brown on top."
+    ],
+    "notes": "Serve with love",
+    "createdAt": "2026-07-08T01:14:33.431Z",
+    "updatedAt": "2026-07-08T01:14:33.431Z"
+  },
+  {
     "id": "8dcaca90-6804-43ba-bb8d-45627ca84a87",
     "title": "Forbidden Biscuits",
     "category": "Dinner",
