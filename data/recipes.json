@@ -1,5 +1,31 @@
 [
   {
+    "id": "3a539308-32fa-4770-8324-9a0be0b9b942",
+    "title": "Barbeque Sauce",
+    "category": "Sauce",
+    "prepTime": "10 min",
+    "cookTime": "5 min",
+    "servings": "6",
+    "source": "Grandma",
+    "image": "images/chatgpt-image-jul-7-2026-08-05-40-pm.png",
+    "ingredients": [
+      "1/2 cup Chopped Onion",
+      "2 Tbsp Margarine",
+      "2 cans tomato soup",
+      "1/2 cup Brown Sugar",
+      "1 Tbsp Vinegar",
+      "1/4 tsp ground clove",
+      "1 Tbsp Mustard"
+    ],
+    "instructions": [
+      "Sauté Onions in margarine until tender.",
+      "Stir in remaining ingredients and simmer on medium to medium low for 5 minutes"
+    ],
+    "notes": "Pour over 2 or 3 Lbs of shredded Beef that has been cooked tender.\nPour Beef and Barbeque mixture in Baking Pan.\nCover and cook for 30 minutes.",
+    "createdAt": "2026-07-08T00:05:56.097Z",
+    "updatedAt": "2026-07-08T00:05:56.097Z"
+  },
+  {
     "id": "e444f6ce-d524-4d7f-99e8-7b4553061d46",
     "title": "Brunswich Stew",
     "category": "Dinner",
