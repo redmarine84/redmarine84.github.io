@@ -312,15 +312,27 @@ function bindEvents() {
 }
 
 async function loadInitialRecipes() {
+  /*
+    Public visitors should always see the shared cookbook file first.
+    data/recipes.json is the master list for the live website.
+    localStorage is only a backup for the editor's browser if the shared file cannot be reached.
+  */
+  try {
+    const publishedRecipes = await fetchRecipesFromPublishedJson();
+    const normalized = publishedRecipes.map(normalizeRecipe);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized));
+    return normalized;
+  } catch (error) {
+    console.warn("Published recipe file was not loaded. Trying GitHub API next.", error);
+  }
+
   try {
     const githubRecipes = await fetchRecipesFromGithubJson(false);
-    if (githubRecipes.length) {
-      const normalized = githubRecipes.map(normalizeRecipe);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized));
-      return normalized;
-    }
+    const normalized = githubRecipes.map(normalizeRecipe);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized));
+    return normalized;
   } catch (error) {
-    console.warn("GitHub recipe file was not loaded. Falling back to local recipes.", error);
+    console.warn("GitHub recipe file was not loaded. Falling back to local backup.", error);
   }
 
   const saved = localStorage.getItem(STORAGE_KEY);
@@ -658,6 +670,24 @@ async function publishRecipesToGitHub(message = "Update recipe cookbook") {
   }
 }
 
+async function fetchRecipesFromPublishedJson() {
+  const settings = getGithubSettingsFromForm();
+  const path = normalizeRepoPath(settings.recipesPath || defaultGithubSettings.recipesPath);
+  const response = await fetch(`${path}?v=${Date.now()}`, { cache: "no-store" });
+
+  if (!response.ok) {
+    throw new Error(`Published recipe file was not found at ${path}.`);
+  }
+
+  const parsed = await response.json();
+
+  if (!Array.isArray(parsed)) {
+    throw new Error(`${path} must contain a JSON array of recipes.`);
+  }
+
+  return parsed;
+}
+
 async function fetchRecipesFromGithubJson(requireSettings) {
   const settings = getGithubSettingsFromForm();
   const path = normalizeRepoPath(settings.recipesPath || defaultGithubSettings.recipesPath);
@@ -682,13 +712,15 @@ async function fetchRecipesFromGithubJson(requireSettings) {
     const data = await response.json();
     const jsonText = base64ToString(data.content || "");
     const parsed = JSON.parse(jsonText);
-    return Array.isArray(parsed) ? parsed : [];
+
+    if (!Array.isArray(parsed)) {
+      throw new Error(`${path} must contain a JSON array of recipes.`);
+    }
+
+    return parsed;
   }
 
-  const response = await fetch(`${path}?v=${Date.now()}`, { cache: "no-store" });
-  if (!response.ok) throw new Error(`Recipe file was not found at ${path}.`);
-  const parsed = await response.json();
-  return Array.isArray(parsed) ? parsed : [];
+  return fetchRecipesFromPublishedJson();
 }
 
 async function putGithubFile(path, base64Content, message, settings) {
@@ -778,7 +810,14 @@ function validateGithubSettings(settings) {
 }
 
 function hasUsableGithubSettings(settings) {
-  return Boolean(settings.owner && settings.repo && settings.branch && settings.imageFolder && settings.recipesPath && settings.token);
+  return Boolean(
+    !isPlaceholderRepoValue(settings.owner) &&
+      !isPlaceholderRepoValue(settings.repo) &&
+      settings.branch &&
+      settings.imageFolder &&
+      settings.recipesPath &&
+      settings.token
+  );
 }
 
 function loadGithubSettingsIntoForm() {
@@ -799,13 +838,29 @@ function saveGithubSettingsFromForm(showMessage = true) {
 
 function getSavedGithubSettings() {
   const saved = localStorage.getItem(GITHUB_SETTINGS_KEY);
-  if (!saved) return { ...defaultGithubSettings };
+  let savedSettings = {};
 
-  try {
-    return { ...defaultGithubSettings, ...JSON.parse(saved) };
-  } catch {
-    return { ...defaultGithubSettings };
+  if (saved) {
+    try {
+      savedSettings = JSON.parse(saved);
+    } catch {
+      savedSettings = {};
+    }
   }
+
+  /*
+    Repo details come from config.js, not from old browser storage.
+    This prevents a previously saved placeholder repo from blocking public recipe loading or publishing.
+  */
+  return {
+    ...defaultGithubSettings,
+    token: savedSettings.token || "",
+    owner: defaultGithubSettings.owner || savedSettings.owner || "",
+    repo: defaultGithubSettings.repo || savedSettings.repo || "",
+    branch: defaultGithubSettings.branch || savedSettings.branch || "main",
+    imageFolder: defaultGithubSettings.imageFolder || savedSettings.imageFolder || "images",
+    recipesPath: defaultGithubSettings.recipesPath || savedSettings.recipesPath || "data/recipes.json"
+  };
 }
 
 function getGithubSettingsFromForm() {
