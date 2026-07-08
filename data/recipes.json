@@ -1,5 +1,41 @@
 [
   {
+    "id": "9023d0fe-98c6-4028-a4a1-c47d779be874",
+    "title": "Yeast Rolls",
+    "category": "Dinner",
+    "prepTime": "—",
+    "cookTime": "—",
+    "servings": "—",
+    "source": "",
+    "image": "images/chatgpt-image-jul-7-2026-07-51-01-pm.png",
+    "ingredients": [
+      "2 cups All-purpose flour",
+      "1 tsp baking powder",
+      "1/4 tsp baking soda",
+      "1/2 tsp salt",
+      "3 Tbsp sugar",
+      "3/4 cup warm buttermilk",
+      "1/4 water water",
+      "1 pkg Yeast",
+      "1/4 Shortening"
+    ],
+    "instructions": [
+      "Preheat oven to 400°",
+      "Sift flour, baking powder, baking soda, salt and sugar into a large bowl.",
+      "Cut in shortening.",
+      "Soften yeast in warm water (make sure it completely dissolves)",
+      "Add warm buttermilk then add to and mix with dry ingredients.",
+      "Turn out onto a floured surface.",
+      "Knead just until elastic or smooth",
+      "Roll out and cut into biscuit size of your choosing.",
+      "Place on a greased baking pan and let rise for 1 hour in a draft free area.",
+      "Bake for 10 minutes or until lightly brown"
+    ],
+    "notes": "Good with Brunswich Stew (or anything else) always serve with love",
+    "createdAt": "2026-07-08T00:22:00.462Z",
+    "updatedAt": "2026-07-08T00:22:00.462Z"
+  },
+  {
     "id": "3a539308-32fa-4770-8324-9a0be0b9b942",
     "title": "Barbeque Sauce",
     "category": "Sauce",
