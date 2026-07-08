@@ -1,5 +1,28 @@
 [
   {
+    "id": "452d8ea8-37e7-4fcc-91d2-fa7d92ac2d04",
+    "title": "Zesty Italian Dressing Chicken",
+    "category": "Dinner",
+    "prepTime": "10 min",
+    "cookTime": "1 hour",
+    "servings": "—",
+    "source": "",
+    "image": "images/italianchicken.png",
+    "ingredients": [
+      "6 Boneless Chicken Breast",
+      "I large bottle of Italian Dressing"
+    ],
+    "instructions": [
+      "Place Chicken breast in large bowl.",
+      "Cover chicken with Italian dressing and let marinate for at least 1 hour.",
+      "Cook on grill or in oven until done (about 1 hour)",
+      "Brush chicken with dressing while cooking"
+    ],
+    "notes": "I remember this was one of Grandma's go to recipes if she didn't know what to cook.",
+    "createdAt": "2026-07-08T00:30:50.680Z",
+    "updatedAt": "2026-07-08T00:30:50.680Z"
+  },
+  {
     "id": "9023d0fe-98c6-4028-a4a1-c47d779be874",
     "title": "Yeast Rolls",
     "category": "Dinner",
