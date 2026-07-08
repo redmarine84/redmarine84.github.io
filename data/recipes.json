@@ -1,5 +1,38 @@
 [
   {
+    "id": "7776d4f5-079d-435d-8b5c-031fa2e9c14d",
+    "title": "Beef Stroganoff",
+    "category": "Dinner",
+    "prepTime": "10 min",
+    "cookTime": "45 min",
+    "servings": "8",
+    "source": "Grandma",
+    "image": "images/beefstroganoff.png",
+    "ingredients": [
+      "2 Lbs Thin cut steak, Ground Beef/ Chuck",
+      "2 Tbsp Margarine",
+      "4 Tbsp Flour",
+      "1/4 tsp Garlic powder",
+      "2 tsp Salt",
+      "1/4 Pepper",
+      "2 cans Cream of Mushroom soup",
+      "1 8oz can Mushrooms",
+      "1 medium onion (Minced)",
+      "8 oz Sour cream"
+    ],
+    "instructions": [
+      "On Medium High heat melt margarine.",
+      "Add Onion and garlic and sauté until onions are translucent.",
+      "Add Beef and brown.",
+      "Add flour, salt, pepper, cream of mushroom and mushrooms.",
+      "Simmer on Medium to medium low for 10 mins.",
+      "Add sour cream and simmer 5 mins."
+    ],
+    "notes": "Serve over rice or noodles. ( I prefer Egg Noodles)",
+    "createdAt": "2026-07-08T00:42:54.218Z",
+    "updatedAt": "2026-07-08T00:42:54.218Z"
+  },
+  {
     "id": "452d8ea8-37e7-4fcc-91d2-fa7d92ac2d04",
     "title": "Zesty Italian Dressing Chicken",
     "category": "Dinner",
