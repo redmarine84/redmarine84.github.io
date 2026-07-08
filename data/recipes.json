@@ -1,5 +1,34 @@
 [
   {
+    "id": "b8a89755-55e7-446f-8438-bb7a4509fb26",
+    "title": "Chicken Casserole",
+    "category": "Dinner",
+    "prepTime": "30 min",
+    "cookTime": "30 - 40 mins",
+    "servings": "10",
+    "source": "Grandma",
+    "image": "images/chicken-casserole.png",
+    "ingredients": [
+      "1 or 2 Sleeves of Ritz Crackers (crushed)",
+      "1 Whole Chicken , cooked and deboned",
+      "1 stick Butter/Margarine (Sliced)",
+      "1 can Water Chestnuts (Optional)",
+      "1 can Cream of Mushroom soup",
+      "1 can Cream of Chicken soup",
+      "8 oz Sour cream"
+    ],
+    "instructions": [
+      "Preheat oven to 350°.",
+      "In large bowl mix crushed Ritz with In a 2-Qt casserole dish layer Crushed Ritz crackers (reserve 1/2 - 1 cup for topping)  pads of butter and shredded Chicken (and water chestnuts if added).",
+      "In a large bowl mix soups and sour cream and pour over layered ingredients.",
+      "Top with remaining crackers and butter.",
+      "Bake for 30 - 40 minutes until top is lightly golden."
+    ],
+    "notes": "",
+    "createdAt": "2026-07-08T01:33:13.793Z",
+    "updatedAt": "2026-07-08T01:33:13.793Z"
+  },
+  {
     "id": "e728642e-3dff-4f5b-b816-4f4335d08d11",
     "title": "Dressing",
     "category": "Holiday",
