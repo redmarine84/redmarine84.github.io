@@ -1,5 +1,32 @@
 [
   {
+    "id": "371587c9-e4bb-41ba-8ce5-aea3c083114e",
+    "title": "Do Lolly",
+    "category": "Dinner",
+    "prepTime": "10 min",
+    "cookTime": "10 min",
+    "servings": "6",
+    "source": "Grandma's Mama",
+    "image": "images/do-lolly.png",
+    "ingredients": [
+      "1 Lb Groundbeef / Chuck",
+      "1 - 2 cans of Beef and Vegetable soup",
+      "1 medium onion, Sliced in rounds",
+      "2 Medium potatoes, sliced in rounds"
+    ],
+    "instructions": [
+      "Preheat oven to 375 °",
+      "Brown and drain the ground beef/chuck.",
+      "In a casserole dish layer, beef, potatoes, then onion.",
+      "Repeat until ingredients are gone or casserole dish is full.",
+      "Pour Beef and vegetable soup over top. Spread even.",
+      "Cook 30 mins or until potatoes are fork tender."
+    ],
+    "notes": "(There was no cook time in the recipe 30 minutes is a guess...LOL)",
+    "createdAt": "2026-07-08T01:43:31.181Z",
+    "updatedAt": "2026-07-08T01:43:31.181Z"
+  },
+  {
     "id": "b8a89755-55e7-446f-8438-bb7a4509fb26",
     "title": "Chicken Casserole",
     "category": "Dinner",
