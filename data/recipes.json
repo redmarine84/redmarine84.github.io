@@ -12,7 +12,7 @@
       "---------- FOR CORN BREAD ----------",
       "1/4 cup Vegetable oil",
       "1 tsp baking powder",
-      "2 cups corn meal",
+      "2 cups corn meal (Self rising)",
       "3 cups flour",
       "Milk (amount needed)",
       "------------------------------------------------------",
@@ -26,7 +26,9 @@
     ],
     "instructions": [
       "Preheat oven to 425°",
-      "Cook Cornbread in 9x12 pan about 20 min or until done and golden brown.",
+      "Mix all ingredients for corn bread in large bowl.",
+      "Pour cornbread mixture into 9x12 pan (should be enough for 2)",
+      "Cook Cornbread about 20 min or until done and golden brown.",
       "Cook chicken in large pot until done and tender.",
       "Shred chicken into large bowl.",
       "Crumble Corn bread and bread crumbs into the large bowl.",
@@ -36,7 +38,7 @@
     ],
     "notes": "Serve with love",
     "createdAt": "2026-07-08T01:14:33.431Z",
-    "updatedAt": "2026-07-08T01:14:33.431Z"
+    "updatedAt": "2026-07-08T01:17:53.035Z"
   },
   {
     "id": "8dcaca90-6804-43ba-bb8d-45627ca84a87",
