@@ -1,5 +1,41 @@
 [
   {
+    "id": "9f54ac96-ce65-4845-9b32-c3f4fa89429f",
+    "title": "Easy Bake Cheddar Biscuits",
+    "category": "Bread",
+    "prepTime": "—",
+    "cookTime": "10 - 12 mins",
+    "servings": "9",
+    "source": "Missy",
+    "image": "images/cheddar-biscuits.png",
+    "ingredients": [
+      "1 cup flour",
+      "2 tsp Calumet Baking Powder",
+      "1/4 tsp cream of tartar",
+      "1/4 tsp sugar",
+      "1/4 tsp salt",
+      "1/4 cup (1 1/2 stick) cold butter. cubed",
+      "1 cup[ Kraft Shredded Cheddar cheese",
+      "1/3 cup milk"
+    ],
+    "instructions": [
+      "Preheat oven 450°",
+      "Mix flour, baking powder, cream of tartar, sugar and salt in medium bowl.",
+      "Cut in butter with pastry blender or two knives until mixture resembles coarse crumbles.",
+      "Stir in cheddar cheese.",
+      "Add milk until mixture forms soft dough.",
+      "Place dough on lightly floured surface",
+      "Knead 8 to 10 times or until smooth",
+      "Pat out dough into 6 in squares",
+      "Cut into 9 squares.",
+      "Place on ungreased baking sheet",
+      "Bake 10 - 12 min or until golden brown."
+    ],
+    "notes": "Spread each warm biscuit with 2 1/2 tsp Philadelphia chive and onion cream cheese spread",
+    "createdAt": "2026-07-09T00:43:39.036Z",
+    "updatedAt": "2026-07-09T00:43:39.036Z"
+  },
+  {
     "id": "7c0a8cc4-e382-49f7-a3da-aff0b4fd91f7",
     "title": "Turnip Greens",
     "category": "Side",
