@@ -1,5 +1,35 @@
 [
   {
+    "id": "9a79d55d-3686-4120-aaa4-3b300807b7ba",
+    "title": "Garlic Bisquits",
+    "category": "Bread",
+    "prepTime": "15 min",
+    "cookTime": "—",
+    "servings": "12",
+    "source": "Grandma",
+    "image": "images/garlic-biscuits.png",
+    "ingredients": [
+      "2 cups Bisquick",
+      "1/2 cup grated cheese",
+      "2/3 cup milk",
+      "2 Tbsp cold margarine",
+      "--------- For Garlic Topping",
+      "1/4 Garlic Powder",
+      "1/2 stick margarine, melted",
+      "1 tsp chives chopped"
+    ],
+    "instructions": [
+      "Preheat Oven to 400°",
+      "Mix Bisquick with cheese and milk.",
+      "Use ice cream scoop to portion out the bisquits onto a greased pan",
+      "Cook until done.",
+      "Combine garlic powder, melted margarine and chives and brush onto tops of cooked bisquits"
+    ],
+    "notes": "",
+    "createdAt": "2026-07-09T22:34:26.697Z",
+    "updatedAt": "2026-07-09T22:34:26.697Z"
+  },
+  {
     "id": "f700f0d2-278c-4e8f-8f0d-1ec35fba0e76",
     "title": "Pumpkin Pie",
     "category": "Dessert",
