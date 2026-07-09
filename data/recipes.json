@@ -48,8 +48,8 @@
     "title": "Southern Cornbread",
     "category": "Bread",
     "prepTime": "10 min",
-    "cookTime": "—",
-    "servings": "—",
+    "cookTime": "20 - 25 min",
+    "servings": "8",
     "source": "Grandma",
     "image": "images/cornbread.png",
     "ingredients": [
@@ -70,13 +70,13 @@
     ],
     "notes": "",
     "createdAt": "2026-07-09T00:59:32.620Z",
-    "updatedAt": "2026-07-09T00:59:32.620Z"
+    "updatedAt": "2026-07-09T01:34:54.397Z"
   },
   {
     "id": "9f54ac96-ce65-4845-9b32-c3f4fa89429f",
     "title": "Easy Bake Cheddar Biscuits",
     "category": "Bread",
-    "prepTime": "—",
+    "prepTime": "25 mins",
     "cookTime": "10 - 12 mins",
     "servings": "9",
     "source": "Missy",
@@ -106,7 +106,7 @@
     ],
     "notes": "Spread each warm biscuit with 2 1/2 tsp Philadelphia chive and onion cream cheese spread",
     "createdAt": "2026-07-09T00:43:39.036Z",
-    "updatedAt": "2026-07-09T00:43:39.036Z"
+    "updatedAt": "2026-07-09T01:35:17.593Z"
   },
   {
     "id": "7c0a8cc4-e382-49f7-a3da-aff0b4fd91f7",
