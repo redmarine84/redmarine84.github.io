@@ -1,5 +1,43 @@
 [
   {
+    "id": "63921769-acbf-4e4e-a156-845452836365",
+    "title": "Strawberry Yum Yum",
+    "category": "Dessert",
+    "prepTime": "15 min",
+    "cookTime": "20 min",
+    "servings": "12",
+    "source": "Tim Jr.",
+    "image": "images/strawberry-yum-yum.png",
+    "ingredients": [
+      "2 cups fresh Strawberries, sliced and divided",
+      "2 cups sugar",
+      "1/4 cup + 3 Tbsp water",
+      "1/4 cup cornstarch",
+      "1 cup All-purpose flour",
+      "1/2 cup margarine, softened",
+      "1 cup Pecan, chopped",
+      "1 8oz pkg Cream cheese, softened",
+      "1 9oz carton Cool Whip"
+    ],
+    "instructions": [
+      "Preheat over to 300°",
+      "Combine berries, 1 cup sugar, 1/4 cup water in pot.",
+      "Cook on medium heat about 15 mins",
+      "Mix cornstarch with 3 Tbsp water in a small bowl.",
+      "Add cornstarch mixture to berries and stir well.",
+      "Cook until berry mixture thickens, take off heat and cool.",
+      "In a large bowl mix flour, margarine, and pecans together.",
+      "Press pecan mixture into bottom of a lightly greased 13 x 9 x 2 pan.",
+      "Bake crust for 20 mins, then set aside to cool.",
+      "Combine cream cheese and 1 cup of sugar, beat well.",
+      "Fold cool whip into cream cheese mixture and spread mixture evenly over crust.",
+      "Evenly spread top with berry mixture."
+    ],
+    "notes": "",
+    "createdAt": "2026-07-09T23:00:38.498Z",
+    "updatedAt": "2026-07-09T23:00:38.498Z"
+  },
+  {
     "id": "8486df21-02f7-4ed4-8f2b-e680cbacb3f2",
     "title": "Blueberry Yum Yum",
     "category": "Dessert",
