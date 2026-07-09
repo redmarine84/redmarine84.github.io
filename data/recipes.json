@@ -1,32 +1,31 @@
 [
   {
-    "id": "c699bb38-261b-4fad-9bf9-948857b854a5",
-    "title": "Garlic Bisquits",
-    "category": "Bread",
+    "id": "f700f0d2-278c-4e8f-8f0d-1ec35fba0e76",
+    "title": "Pumpkin Pie",
+    "category": "Dessert",
     "prepTime": "15 min",
-    "cookTime": "20 - 25 min",
-    "servings": "12",
+    "cookTime": "60 min",
+    "servings": "8",
     "source": "Grandma",
-    "image": "images/garlic-biscuits.png",
+    "image": "images/pumpkin-pie.png",
     "ingredients": [
-      "2 cups Bisquick",
-      "1/2 cup Grated Cheese",
-      "2/3 cup milk",
-      "2 Tbsp cold Margarine",
-      "---------- For Garlic Topping -----------",
-      "1/4 tsp Garlic powder",
-      "1/2 stick of Margarine, melted"
+      "1 1/2 cup cooked Pumpkin or Libby Canned Pumpkin",
+      "1 can Evaporated Milk",
+      "1 cup sugar",
+      "1/4 tsp salt",
+      "1/4 tsp Ground nutmeg",
+      "1/4 tsp cinnamon",
+      "2 eggs, beaten",
+      "1 Tbsp margarine, melted"
     ],
     "instructions": [
-      "Preheat oven to 400°",
-      "Mix Bisquick with cheese and milk.",
-      "Use ice cream scoop to put onto greased pan.",
-      "Cook until done.",
-      "Mix together Garlic powder and melted margarine and brush  on top o cooked bisquits while warm"
+      "Preheat oven to 300°",
+      "Combine all ingredients in a large bowl and mix thoroughly.",
+      "Pour into uncooked Pie Shell and bake for 1 hour"
     ],
     "notes": "",
-    "createdAt": "2026-07-09T22:21:58.908Z",
-    "updatedAt": "2026-07-09T22:21:58.908Z"
+    "createdAt": "2026-07-09T22:26:12.217Z",
+    "updatedAt": "2026-07-09T22:26:12.217Z"
   },
   {
     "id": "df5c01d6-a9b3-4f28-b92b-a6d65d1d8c7a",
