@@ -1,5 +1,29 @@
 [
   {
+    "id": "7c0a8cc4-e382-49f7-a3da-aff0b4fd91f7",
+    "title": "Turnip Greens",
+    "category": "Side",
+    "prepTime": "30 min",
+    "cookTime": "2 - 3 hours",
+    "servings": "12",
+    "source": "Grandma",
+    "image": "images/turnip-greens.png",
+    "ingredients": [
+      "4 small packs or 1 large bunch of Turnip Greens",
+      "Fatback"
+    ],
+    "instructions": [
+      "Cut stems off and wash turnips in 4 sinks full of water until water is clear and no grit.",
+      "Put washed greens in large pot and cover with water. (All may not fit)",
+      "Cook Turnip greens and slowly add greens that did not fit at first (Be patient)",
+      "Once all greens are in the pot, Add fatback.",
+      "Cook for 3 - 4 hours until greens are tender, adding water and salt as needed"
+    ],
+    "notes": "Serve with cornbread",
+    "createdAt": "2026-07-09T00:34:33.600Z",
+    "updatedAt": "2026-07-09T00:34:33.600Z"
+  },
+  {
     "id": "ea10d3fb-d075-4545-9074-572f89a854af",
     "title": "Beef Soup",
     "category": "Dinner",
