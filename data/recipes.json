@@ -1,5 +1,35 @@
 [
   {
+    "id": "579934d3-5ac4-424a-9ae4-80ab7f128070",
+    "title": "Rice Pudding",
+    "category": "Family Favorite",
+    "prepTime": "—",
+    "cookTime": "—",
+    "servings": "—",
+    "source": "",
+    "image": "images/rice-pudding.png",
+    "ingredients": [
+      "1 cup Sugar",
+      "3 eggs, beaten",
+      "1 1/2 cups milk",
+      "1/2 cups plus 1 Tbsp butter, melted",
+      "1 tsp Ground Cinnamon",
+      "1 tsp Vanilla Extract",
+      "3 cups Cooked rice"
+    ],
+    "instructions": [
+      "Combine sugar, eggs, milk, and butter in mixing bowl. (1 Tbsp reserved)",
+      "Add cinnamon and vanilla and mix well.",
+      "Add rice and mix well.",
+      "Pour into lightly greased 9 x 9 baking dish or pan.",
+      "Bake 350° for 35 - 40 mins",
+      "Drizzle 1 Tbsp of melted butter on top the last few minutes of baking to make top brown."
+    ],
+    "notes": "",
+    "createdAt": "2026-07-09T02:00:20.835Z",
+    "updatedAt": "2026-07-09T02:00:20.835Z"
+  },
+  {
     "id": "e44d7aa7-72bd-4f68-bae7-164be018585d",
     "title": "Pillow-Soft Rolls",
     "category": "Bread",
