@@ -1,5 +1,45 @@
 [
   {
+    "id": "793c79e2-4fca-4e04-bcc9-264737bc948a",
+    "title": "Banana Pudding",
+    "category": "Dessert",
+    "prepTime": "35 min",
+    "cookTime": "5 min",
+    "servings": "12",
+    "source": "Grandma",
+    "image": "images/banana-pudding.png",
+    "ingredients": [
+      "3/4 cup sugar",
+      "3 Tbsp flour",
+      "4 eggs",
+      "2 cups milk",
+      "1/2 tsp Vanilla Extract",
+      "5 - 6 Full Ripe Bananas, Sliced",
+      "1 - 2 Boxes of Nilla Wafers",
+      "Dash of salt"
+    ],
+    "instructions": [
+      "Preheat oven to 425°",
+      "Combine sugar, flour and salt in the top of a double boiler.",
+      "Mix in 1 whole egg and 3 egg yolks. (Reserve Egg whites for Meringue)",
+      "Stir in milk.",
+      "Cook, uncovered, over boiling water, stirring constantly until thickened.",
+      "Remove pudding from heat and stir in vanilla.",
+      "Spread small amount of pudding on bottom of casserole dish.",
+      "Cover with layer of Wafers then sliced bananas.",
+      "Cover with a layer of pudding.",
+      "Continue layering until you have filled your casserole dish or you have at least 3 layers.",
+      "---------- Meringue is optional ----------",
+      "Beat Reserved egg whites until stiff. (just starting to firm)",
+      "Add 1/4 cup sugar and beat until mixture it forms stiff peaks.",
+      "Put on top of pudding covering entire surface.",
+      "Bake for 5 mins or until Meringue is lightly brown."
+    ],
+    "notes": "",
+    "createdAt": "2026-07-09T22:46:44.150Z",
+    "updatedAt": "2026-07-09T22:46:44.150Z"
+  },
+  {
     "id": "9a79d55d-3686-4120-aaa4-3b300807b7ba",
     "title": "Garlic Bisquits",
     "category": "Bread",
