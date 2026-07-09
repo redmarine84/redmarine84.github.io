@@ -1,5 +1,28 @@
 [
   {
+    "id": "df5c01d6-a9b3-4f28-b92b-a6d65d1d8c7a",
+    "title": "Frosty Ice Cream",
+    "category": "Dessert",
+    "prepTime": "10 mins",
+    "cookTime": "—",
+    "servings": "6",
+    "source": "Grandma",
+    "image": "images/frosty-ice-cream.png",
+    "ingredients": [
+      "1/2 Gal Chocolate Milk",
+      "1 Large Container of Cool Whip",
+      "1 can Eagle brand Evaporated Milk"
+    ],
+    "instructions": [
+      "Combine all ingredients.",
+      "Place in blender and freeze. (Wrap in cling wrap to ensure no leaks)",
+      "Once frozen blend on High until Smooth."
+    ],
+    "notes": "",
+    "createdAt": "2026-07-09T22:09:37.700Z",
+    "updatedAt": "2026-07-09T22:09:37.700Z"
+  },
+  {
     "id": "39d4aa5a-953c-4252-b97e-b0643303cf9c",
     "title": "Creamy Chicken Soup w/ Potatoes and Bacon",
     "category": "Dinner",
