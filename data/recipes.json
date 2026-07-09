@@ -1,5 +1,34 @@
 [
   {
+    "id": "c699bb38-261b-4fad-9bf9-948857b854a5",
+    "title": "Garlic Bisquits",
+    "category": "Bread",
+    "prepTime": "15 min",
+    "cookTime": "20 - 25 min",
+    "servings": "12",
+    "source": "Grandma",
+    "image": "images/garlic-biscuits.png",
+    "ingredients": [
+      "2 cups Bisquick",
+      "1/2 cup Grated Cheese",
+      "2/3 cup milk",
+      "2 Tbsp cold Margarine",
+      "---------- For Garlic Topping -----------",
+      "1/4 tsp Garlic powder",
+      "1/2 stick of Margarine, melted"
+    ],
+    "instructions": [
+      "Preheat oven to 400°",
+      "Mix Bisquick with cheese and milk.",
+      "Use ice cream scoop to put onto greased pan.",
+      "Cook until done.",
+      "Mix together Garlic powder and melted margarine and brush  on top o cooked bisquits while warm"
+    ],
+    "notes": "",
+    "createdAt": "2026-07-09T22:21:58.908Z",
+    "updatedAt": "2026-07-09T22:21:58.908Z"
+  },
+  {
     "id": "df5c01d6-a9b3-4f28-b92b-a6d65d1d8c7a",
     "title": "Frosty Ice Cream",
     "category": "Dessert",
