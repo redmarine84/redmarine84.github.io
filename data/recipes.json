@@ -1,5 +1,36 @@
 [
   {
+    "id": "3a198f89-9e2f-4223-9d2c-4dce6c6000f4",
+    "title": "Hot Water Cornbread",
+    "category": "Bread",
+    "prepTime": "15 min",
+    "cookTime": "15 mins",
+    "servings": "12",
+    "source": "",
+    "image": "images/hotwater-cornbread.png",
+    "ingredients": [
+      "2 cups self-rising plain cornmeal ((not cornmeal mix))",
+      "1 1/2 to 2 cups boiling water*",
+      "vegetable oil for frying"
+    ],
+    "instructions": [
+      "Pour about 1/2 inch of oil into a heavy-bottomed skillet.",
+      "Heat the oil to about 350° or until glistening but not smoking.",
+      "In a large thick plastic or metal bowl combine the self-rising corn meal with about 1 1/2 cups of boiling water.",
+      "Carefully stir to combine.",
+      "(The batter should barely be pourable. Add additional water until you reach the a very thick pancake batter.)",
+      "(Different corn meals will require different amounts of water.)",
+      "(Start with less and add more if you need it.)",
+      "Once the oil is hot, pour or spoon about 1/4 cup of the batter into the oil.",
+      "Cook 3 to 5 minutes or until brown around the edges then carefully flip over and cook an additional 3 to 4 minutes.",
+      "Work in batches, adding additional oil if necessary.",
+      "Drain the cornbread on a plate lined with paper towels. Serve warm."
+    ],
+    "notes": "Just for Jah",
+    "createdAt": "2026-07-09T23:28:48.145Z",
+    "updatedAt": "2026-07-09T23:28:48.145Z"
+  },
+  {
     "id": "63921769-acbf-4e4e-a156-845452836365",
     "title": "Strawberry Yum Yum",
     "category": "Dessert",
