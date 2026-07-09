@@ -3,10 +3,10 @@
     "id": "579934d3-5ac4-424a-9ae4-80ab7f128070",
     "title": "Rice Pudding",
     "category": "Family Favorite",
-    "prepTime": "—",
-    "cookTime": "—",
-    "servings": "—",
-    "source": "",
+    "prepTime": "5 min",
+    "cookTime": "35 - 40 min",
+    "servings": "6",
+    "source": "Grandma",
     "image": "images/rice-pudding.png",
     "ingredients": [
       "1 cup Sugar",
@@ -27,7 +27,7 @@
     ],
     "notes": "",
     "createdAt": "2026-07-09T02:00:20.835Z",
-    "updatedAt": "2026-07-09T02:00:20.835Z"
+    "updatedAt": "2026-07-09T21:10:11.039Z"
   },
   {
     "id": "e44d7aa7-72bd-4f68-bae7-164be018585d",
