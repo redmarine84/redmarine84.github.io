@@ -1,7 +1,46 @@
 [
   {
+    "id": "8486df21-02f7-4ed4-8f2b-e680cbacb3f2",
+    "title": "Blueberry Yum Yum",
+    "category": "Dessert",
+    "prepTime": "15 min",
+    "cookTime": "20 mins",
+    "servings": "12",
+    "source": "Grandma",
+    "image": "images/blueberry-yum-yum.png",
+    "ingredients": [
+      "2 cups fresh Blueberries, divided",
+      "2 cups sugar",
+      "1/4 cup + 3 Tbsp water",
+      "1/4 cup cornstarch",
+      "1 cup All-purpose flour",
+      "1/2 cup margarine, softened",
+      "1 cup Pecan, chopped",
+      "1 8oz pkg Cream cheese, softened",
+      "1 9oz carton Cool Whip"
+    ],
+    "instructions": [
+      "Preheat over to 300°",
+      "Combine berries, 1 cup sugar, 1/4 cup water in pot.",
+      "Cook on medium heat about 15 mins",
+      "Mix cornstarch with 3 Tbsp water in a small bowl.",
+      "Add cornstarch mixture to berries and stir well.",
+      "Cook until berry mixture thickens, take off heat and cool.",
+      "In a large bowl mix flour, margarine, and pecans together.",
+      "Press pecan mixture into bottom of a lightly greased 13 x 9 x 2 pan.",
+      "Bake crust for 20 mins, then set aside to cool.",
+      "Combine cream cheese and 1 cup of sugar, beat well.",
+      "Fold cool whip into cream cheese mixture and spread mixture evenly over crust.",
+      "Evenly spread top with berry mixture.",
+      "Refrigerate for 1 hour or until cool."
+    ],
+    "notes": "Also have a Strawberry version",
+    "createdAt": "2026-07-09T22:59:01.765Z",
+    "updatedAt": "2026-07-09T22:59:01.765Z"
+  },
+  {
     "id": "793c79e2-4fca-4e04-bcc9-264737bc948a",
-    "title": "Banana Pudding",
+    "title": "Ole' Time Banana Pudding",
     "category": "Dessert",
     "prepTime": "35 min",
     "cookTime": "5 min",
@@ -35,9 +74,9 @@
       "Put on top of pudding covering entire surface.",
       "Bake for 5 mins or until Meringue is lightly brown."
     ],
-    "notes": "",
+    "notes": "Can be doubled",
     "createdAt": "2026-07-09T22:46:44.150Z",
-    "updatedAt": "2026-07-09T22:46:44.150Z"
+    "updatedAt": "2026-07-09T22:47:41.973Z"
   },
   {
     "id": "9a79d55d-3686-4120-aaa4-3b300807b7ba",
