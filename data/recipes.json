@@ -1,5 +1,33 @@
 [
   {
+    "id": "ea10d3fb-d075-4545-9074-572f89a854af",
+    "title": "Beef Soup",
+    "category": "Dinner",
+    "prepTime": "20 min",
+    "cookTime": "45 - 60 mins",
+    "servings": "12 +",
+    "source": "Grandma",
+    "image": "images/beef-soup.png",
+    "ingredients": [
+      "5 - 7 Lb Beef Roast",
+      "1 can of tomatoes (crushed by hand)",
+      "1 medium Onion diced (Omit if you don't like onion)",
+      "1 cup uncooked Elbow Noodles",
+      "1/2 cup uncooked Rice",
+      "1 Dry Hot pepper"
+    ],
+    "instructions": [
+      "In large pot add the Beef roast and cover with water and cook on medium high until tender. (About 45 - 60 mins depending on size of roast)",
+      "Remove Beef from pot, let cool and shred. (DON'T POUR OUT BROTH)",
+      "Add rice and elbow noodles to broth and cook for 30 mins or until rice and macaroni is tender.",
+      "Add crushed tomatoes, salt and pepper, and shredded beef.",
+      "Cook 5 mins and serve."
+    ],
+    "notes": "",
+    "createdAt": "2026-07-09T00:00:25.944Z",
+    "updatedAt": "2026-07-09T00:00:25.944Z"
+  },
+  {
     "id": "cc7c424a-2091-451d-a1e1-2a36073d8eca",
     "title": "Pecan Encrusted Chicken",
     "category": "Dinner",
