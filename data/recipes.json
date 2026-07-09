@@ -1,5 +1,48 @@
 [
   {
+    "id": "39d4aa5a-953c-4252-b97e-b0643303cf9c",
+    "title": "Creamy Chicken Soup w/ Potatoes and Bacon",
+    "category": "Dinner",
+    "prepTime": "15 min",
+    "cookTime": "14 - 16 mins",
+    "servings": "6",
+    "source": "",
+    "image": "images/potato-soup-with-bacon.png",
+    "ingredients": [
+      "4 slices bacon, chopped",
+      "1 Tbsp unsalted butter",
+      "1 Leek (white and green parts) halved and sliced",
+      "2 cloves garlic, pressed",
+      "1 tsp Fennel seed, crushed",
+      "2 Tbsp All-purpose flour",
+      "2 cups Whole milk",
+      "4 cups Chicken Stock",
+      "3/4 lb Red potatoes cut into 1/2 inch chunks",
+      "6 sprigs of thyme",
+      "2 cups Shredded Rotisserie chicken",
+      "1 cup frozen corn",
+      "Salt and pepper to taste",
+      "Fresh chopped chives for serving"
+    ],
+    "instructions": [
+      "Cook bacon in large pot over medium heat until brown and crisp (about 7 - 8 mins)",
+      "Transfer to towel lined plate and reserve the pot and grease from the bacon.",
+      "Add butter and leeks to pot.",
+      "Cook, stirring occasionally, just until tender (about 3 - 4 mins)",
+      "Add garlic and fennel",
+      "Cook, stirring, until fragrant (about 1 min)",
+      "Add flour and cook, stirring (about 1 min)",
+      "Slowly whisk in milk and then stock.",
+      "Add potatoes and thyme, Salt and pepper to taste.",
+      "Bring to boil, reduce heat, and simmer until potatoes are tender (14 - 16 minutes)",
+      "Add chicken and corn.",
+      "Cook until heated through. Discard thyme. Serve topped with bacon and chivers"
+    ],
+    "notes": "",
+    "createdAt": "2026-07-09T21:24:44.085Z",
+    "updatedAt": "2026-07-09T21:24:44.085Z"
+  },
+  {
     "id": "579934d3-5ac4-424a-9ae4-80ab7f128070",
     "title": "Rice Pudding",
     "category": "Family Favorite",
