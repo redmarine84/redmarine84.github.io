@@ -1,5 +1,39 @@
 [
   {
+    "id": "d6c894f3-18f0-41e3-90a7-9bfc01781bc0",
+    "title": "Fried Pies",
+    "category": "Dessert",
+    "prepTime": "25 min",
+    "cookTime": "5 - 10 min",
+    "servings": "6",
+    "source": "",
+    "image": "images/fried-pie.png",
+    "ingredients": [
+      "4 cups All-Purpose flour",
+      "4 tsp Baking powder",
+      "1 tsp salt",
+      "1 cup Shortening",
+      "2 eggs",
+      "1 large can Evaporated Milk",
+      "Apples / Peaches / Fruit pie filling"
+    ],
+    "instructions": [
+      "Mix flour, baking powder, salt and shortening until mixture resembles small crumbs.",
+      "Mix eggs with milk and mix well.",
+      "Combine egg mixture and flour mixture.",
+      "Mix until stretchy.",
+      "Refrigerate dough Overnight.",
+      "Portion and roll out circles using a small saucer as a reference.",
+      "Fill middle w/ fruit that has been cooked down, sweetened and thickened with corn starch or flour. (Or use Pie Filling)",
+      "Wet edges of pastry with water ( Can also use an water and egg mixture, Egg wash)",
+      "Fold over pastry and either crimp or press edges with fork to seal completely.",
+      "Deep fry in at least 1 inch of Oil until golden brown."
+    ],
+    "notes": "Oil temperature unknown, I assume 350° - 375°. Can also be dusted with powdered sugar before serving.",
+    "createdAt": "2026-07-18T16:51:09.846Z",
+    "updatedAt": "2026-07-18T16:51:09.846Z"
+  },
+  {
     "id": "d95c3b21-f1ad-4972-a489-91d2004c559f",
     "title": "Lemon Meringue Pie",
     "category": "Dessert",
