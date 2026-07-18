@@ -1,5 +1,34 @@
 [
   {
+    "id": "d59f7c9e-133b-463d-bfa0-780e0dcda455",
+    "title": "Egg Custard",
+    "category": "Dessert",
+    "prepTime": "15 min",
+    "cookTime": "40 min",
+    "servings": "8",
+    "source": "",
+    "image": "images/egg-custard.png",
+    "ingredients": [
+      "1 cup Sugar",
+      "3 Tbsp flour",
+      "1 stick margarine",
+      "1 large can Evaporated Milk",
+      "3 eggs",
+      "2 tsp Vanilla",
+      "2 tsp nutmeg"
+    ],
+    "instructions": [
+      "Preheat oven to 325°",
+      "Blend all ingredients for 1 minute.",
+      "Pour into greased and floured pie dish",
+      "Sprinkle with nutmeg",
+      "Bake for 40 minutes"
+    ],
+    "notes": "",
+    "createdAt": "2026-07-18T06:59:07.548Z",
+    "updatedAt": "2026-07-18T06:59:07.547Z"
+  },
+  {
     "id": "8f469bb3-06ed-4d38-8b15-587ec45e3213",
     "title": "Red Velvet Cake",
     "category": "Dessert",
