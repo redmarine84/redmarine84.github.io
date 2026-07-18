@@ -1,5 +1,47 @@
 [
   {
+    "id": "e41fd650-2b81-47fe-b8cc-55833d55574c",
+    "title": "Black Forest Delight Cake",
+    "category": "Dessert",
+    "prepTime": "3 hrs 15 mins",
+    "cookTime": "Package Directions",
+    "servings": "12",
+    "source": "Missy",
+    "image": "images/black-forest-delight-cake.png",
+    "ingredients": [
+      "1 pkg Devils food cake mix",
+      "1 1/4 cups water, divided",
+      "1 pkg (4 servings) Jell-O Brand Cherry Gelatin",
+      "2/3 cup Breakstone Sour Cream",
+      "2/3 cup powered Sugar",
+      "1 tub (8 ox) Cool Whip French Vanilla Whipped Topping",
+      "1/3 cup Maraschino Cherries, Drained and Divided",
+      "1 Square Baker's Semi-Sweet Baking Chocolate, melted"
+    ],
+    "instructions": [
+      "Preheat Oven to  350°",
+      "Prepare and bake cake mix as directed in 2 greased and floured 9 in round pans.",
+      "Loosen layers from sides and cool 15 min (DO NOT REMOVE FROM PAN)",
+      "Bring 1 cup water to boil, Stir in gelatin mix and mix until dissolved then Add remaining 1/4 cup water",
+      "Pierce cake layers with large fork at 1/2 in spacing.",
+      "Carefully pour half of the gelatin mixture onto each cake and cool at least 3 hours.",
+      "Mix sour cream and powdered sugar and gently fold in Whipped topping.",
+      "Dip 1 cake pan in warm water to unmold onto a serving plater.",
+      "Spread with 1 cup of Whipped topping mixture.",
+      "Reserve a few cherries for Topping, and chop the rest.",
+      "Sprinkle chopped cherries over cake.",
+      "Unmold 2nd cake and place on first.",
+      "Frost the cake with the remaining Whipped topping mixture.",
+      "--------------- (OPTIONAL) ----------------",
+      "Instead of melting the chocolate, Grate chocolate and spread on top and sides of cake. Top with reserved cherries",
+      "------------------------------------------------------",
+      "Melt chocolate in a double boiler and then drizzle over top of the cake and Top with reserved cherries."
+    ],
+    "notes": "",
+    "createdAt": "2026-07-18T17:32:23.046Z",
+    "updatedAt": "2026-07-18T17:32:23.046Z"
+  },
+  {
     "id": "d6c894f3-18f0-41e3-90a7-9bfc01781bc0",
     "title": "Fried Pies",
     "category": "Dessert",
