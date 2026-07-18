@@ -1,5 +1,36 @@
 [
   {
+    "id": "edc790d4-ddca-4f3d-904d-6fe41dc4e6dc",
+    "title": "Alabama Sweet Potato Pie",
+    "category": "Dessert",
+    "prepTime": "10 min",
+    "cookTime": "60 min",
+    "servings": "8",
+    "source": "",
+    "image": "images/sweet-potato-pie.png",
+    "ingredients": [
+      "1 1/2 cups hot Sweet potatoes, mashed",
+      "3 Eggs, beaten",
+      "1/2 cup Brown sugar firmly packed",
+      "dash Salt",
+      "1/4 tsp Cinnamon",
+      "1/4 tsp Nutmeg",
+      "1/4 tsp Allspice",
+      "1/4 cup Evaporated Milk",
+      "2 Tbsp Margarine, melted",
+      "1 tsp Vanilla",
+      "1 9 in Pie Shell"
+    ],
+    "instructions": [
+      "Preheat Oven to 300°",
+      "Combine all ingredients and pour into unbaked pie shell.",
+      "Bake for 1 hour"
+    ],
+    "notes": "",
+    "createdAt": "2026-07-18T14:25:12.063Z",
+    "updatedAt": "2026-07-18T14:25:12.062Z"
+  },
+  {
     "id": "d59f7c9e-133b-463d-bfa0-780e0dcda455",
     "title": "Egg Custard",
     "category": "Dessert",
