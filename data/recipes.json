@@ -1,5 +1,35 @@
 [
   {
+    "id": "d95c3b21-f1ad-4972-a489-91d2004c559f",
+    "title": "Lemon Meringue Pie",
+    "category": "Dessert",
+    "prepTime": "10 min",
+    "cookTime": "10 min",
+    "servings": "8",
+    "source": "",
+    "image": "images/lemon-meringue-pie.png",
+    "ingredients": [
+      "1 Box Nilla Wafers",
+      "1 can Evaporated Milk, Cold",
+      "1 1/2 Lemons, juiced",
+      "2 egg, yolks and whites separated"
+    ],
+    "instructions": [
+      "Crush some Nilla wafers and put them in the bottom of a pie dish.",
+      "Line the edges of the dish with wafers.",
+      "Beat Evaporated milk with egg yolks.",
+      "Add lemon juice and beat well.",
+      "Pour into Pie dish.",
+      "------------- Meringue ------------",
+      "Beat egg whites with 4 tsp sugar till stiff peaks.",
+      "Spread over pie",
+      "Lightly brown in 350° oven"
+    ],
+    "notes": "",
+    "createdAt": "2026-07-18T15:26:25.402Z",
+    "updatedAt": "2026-07-18T15:26:25.402Z"
+  },
+  {
     "id": "edc790d4-ddca-4f3d-904d-6fe41dc4e6dc",
     "title": "Alabama Sweet Potato Pie",
     "category": "Dessert",
