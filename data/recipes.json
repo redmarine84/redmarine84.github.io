@@ -1,5 +1,32 @@
 [
   {
+    "id": "f4b78b18-654b-462e-b105-555bd2e9e8ac",
+    "title": "Dump Cake",
+    "category": "Dessert",
+    "prepTime": "15 mins",
+    "cookTime": "45 min",
+    "servings": "10 - 12",
+    "source": "",
+    "image": "images/dump-cake.png",
+    "ingredients": [
+      "1 can Apple pie filling",
+      "1 large can Crushed Pineapple",
+      "1 box Spice Cake mix",
+      "1 cup Pecans, chopped fine",
+      "1 stick margarine"
+    ],
+    "instructions": [
+      "Preheat oven to  350 °",
+      "Dump pie filling and pineapple into a casserole dish",
+      "Add cake mix. (Do Not Mix)",
+      "Sprinkle with chopped nuts and cover with thin slices of margarine",
+      "Bake for 45 mins"
+    ],
+    "notes": "This cake is good warm or cold with Ice cream, whipped topping or plain. Can vary recipe with any type pie filling.",
+    "createdAt": "2026-07-18T04:57:45.489Z",
+    "updatedAt": "2026-07-18T04:57:45.489Z"
+  },
+  {
     "id": "3a198f89-9e2f-4223-9d2c-4dce6c6000f4",
     "title": "Hot Water Cornbread",
     "category": "Bread",
