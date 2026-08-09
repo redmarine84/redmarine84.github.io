@@ -1,5 +1,34 @@
 [
   {
+    "id": "9feece34-2466-48c8-809f-e9f28e091b24",
+    "title": "No Bake Cheesecake W/Cool Whip",
+    "category": "Desert",
+    "prepTime": "10 min",
+    "cookTime": "—",
+    "servings": "10",
+    "source": "",
+    "image": "images/no-bake-cheesecake.png",
+    "ingredients": [
+      "2 (8 oz pkgs) Cream cheese, Softened",
+      "1 cup white sugar",
+      "3 Tbsp Vanilla extract",
+      "1 tsp lemon extract (Optional)",
+      "1 (8 oz container) Cool Whip, Thawed",
+      "1 (9 in) round prepared Graham Cracker Crust",
+      "1(21 oz) can Strawberry Pie Filling"
+    ],
+    "instructions": [
+      "Beat cream cheese, sugar, vanilla extract and lemon extract(optional) in a large bowl until smooth and creamy",
+      "Fold in whipped topping",
+      "Pour Mixture into the prepared Graham cracker crust, Smoothy evenly",
+      "Top with Strawberry pie filling and refrigerate until firm, 2 to 3 hours",
+      "Slice and enjoy."
+    ],
+    "notes": "",
+    "createdAt": "2026-08-09T18:57:07.112Z",
+    "updatedAt": "2026-08-09T18:57:07.112Z"
+  },
+  {
     "id": "e41fd650-2b81-47fe-b8cc-55833d55574c",
     "title": "Black Forest Delight Cake",
     "category": "Dessert",
