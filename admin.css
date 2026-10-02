@@ -1,0 +1,29 @@
+.admin-page { min-height: 100vh; background: #f8f1e7; }
+.admin-shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0 64px; }
+.admin-topbar { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:24px; }
+.admin-topbar a { color:#5d2818; font-weight:800; text-decoration:none; }
+.admin-login-card, .admin-dashboard { background:#fffdf8; border:1px solid #eadcc9; border-radius:24px; box-shadow:0 18px 50px rgba(69,42,24,.08); padding:clamp(22px,4vw,42px); }
+.admin-login-card { max-width:560px; margin:48px auto 0; }
+.admin-login-card h1, .admin-dashboard h1 { margin-top:0; color:#5d2818; }
+.admin-login-form { display:grid; gap:18px; }
+.admin-login-form label, .admin-recipe-form label { display:grid; gap:7px; font-weight:800; color:#4c372a; }
+.admin-login-form input, .admin-recipe-form input, .admin-recipe-form textarea {
+  width:100%; box-sizing:border-box; border:1px solid #d9c7b5; border-radius:12px; padding:12px 14px; background:#fff; color:#2f241c; font:inherit;
+}
+.admin-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+.admin-recipe-form { display:grid; gap:18px; margin-top:26px; }
+.admin-actions { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+.admin-status { min-height:1.5em; margin:12px 0 0; font-weight:700; color:#4f6b35; }
+.admin-status.error { color:#a12d27; }
+.admin-toolbar { display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; margin:22px 0; }
+.admin-recipe-list { display:grid; gap:12px; margin-top:24px; }
+.admin-recipe-row { display:flex; justify-content:space-between; align-items:center; gap:16px; border:1px solid #eadcc9; border-radius:16px; padding:14px 16px; background:#fffaf2; }
+.admin-recipe-row h3 { margin:0 0 4px; color:#5d2818; }
+.admin-recipe-row p { margin:0; color:#75685e; }
+.admin-form-panel { border-top:1px solid #eadcc9; margin-top:30px; padding-top:28px; }
+.admin-image-preview { max-width:260px; max-height:200px; object-fit:cover; border-radius:14px; border:1px solid #eadcc9; }
+.admin-setup { background:#fff5d9; border:1px solid #e6c96a; border-radius:14px; padding:14px 16px; margin:0 0 20px; color:#674f00; }
+@media (max-width:760px) {
+  .admin-grid { grid-template-columns:1fr; }
+  .admin-recipe-row { align-items:flex-start; flex-direction:column; }
+}
