@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>McIntyre Cookbook Admin Setup</title>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #fff8ed;
+      color: #2f241c;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    main {
+      width: min(760px, calc(100% - 30px));
+      margin: 40px auto;
+      padding: 34px;
+      background: #fffdf8;
+      border: 1px solid #eadcc9;
+      border-radius: 22px;
+      box-shadow: 0 20px 45px rgba(70,45,24,.12);
+    }
+    h1 { margin-top: 0; color: #5d2818; }
+    .warning {
+      padding: 14px 16px;
+      border: 1px solid #e3c25c;
+      border-radius: 14px;
+      background: #fff4cf;
+      line-height: 1.5;
+    }
+    form { display: grid; gap: 18px; margin-top: 24px; }
+    label { display: grid; gap: 7px; font-weight: 800; color: #5d2818; }
+    input, textarea {
+      width: 100%;
+      border: 1px solid #d8c6b4;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font: inherit;
+    }
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 22px;
+      cursor: pointer;
+      background: #8a3d24;
+      color: white;
+      font-weight: 800;
+    }
+    button.secondary { background: #eadcc9; color: #2f241c; }
+    .buttons { display: flex; gap: 10px; flex-wrap: wrap; }
+    #output-panel { margin-top: 28px; }
+    #output { min-height: 220px; font-family: Consolas, monospace; }
+    .status { min-height: 1.4em; font-weight: 700; color: #6f7d57; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Family Admin Setup</h1>
+    <p>
+      Use this page once to create the encrypted <strong>admin-secrets.js</strong> file.
+      Encryption happens entirely inside this browser.
+    </p>
+
+    <div class="warning">
+      <strong>Important:</strong> Do not send your GitHub token or family password to anyone.
+      Choose a strong family password because the encrypted token will be stored in a public repository.
+    </div>
+
+    <form id="setup-form">
+      <label>
+        Universal Family Username
+        <input id="username" type="text" placeholder="McIntyreFamily" required />
+      </label>
+
+      <label>
+        Universal Family Password
+        <input id="password" type="password" minlength="14" required />
+      </label>
+
+      <label>
+        Confirm Family Password
+        <input id="confirm-password" type="password" minlength="14" required />
+      </label>
+
+      <label>
+        GitHub Fine-Grained Token
+        <input id="github-token" type="password" placeholder="github_pat_..." required />
+      </label>
+
+      <button type="submit">Generate Encrypted Admin File</button>
+      <p id="status" class="status"></p>
+    </form>
+
+    <section id="output-panel" hidden>
+      <h2>Generated admin-secrets.js</h2>
+      <p>
+        Download this file and place it in the root of your
+        <strong>redmarine84.github.io</strong> repository beside <strong>admin.html</strong>.
+      </p>
+
+      <textarea id="output" readonly></textarea>
+
+      <div class="buttons">
+        <button id="download-button" type="button">Download admin-secrets.js</button>
+        <button id="copy-button" class="secondary" type="button">Copy Contents</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const ITERATIONS = 600000;
+    let generatedText = "";
+
+    document.querySelector("#setup-form").addEventListener("submit", generate);
+    document.querySelector("#download-button").addEventListener("click", downloadFile);
+    document.querySelector("#copy-button").addEventListener("click", copyOutput);
+
+    async function generate(event) {
+      event.preventDefault();
+
+      const username = document.querySelector("#username").value.trim();
+      const password = document.querySelector("#password").value;
+      const confirm = document.querySelector("#confirm-password").value;
+      const token = document.querySelector("#github-token").value.trim();
+      const status = document.querySelector("#status");
+
+      status.textContent = "Generating encrypted configuration...";
+
+      if (password !== confirm) {
+        status.textContent = "The two password entries do not match.";
+        return;
+      }
+
+      if (password.length < 14) {
+        status.textContent = "Use a family password with at least 14 characters.";
+        return;
+      }
+
+      if (!token.startsWith("github_")) {
+        status.textContent = "That does not look like a GitHub fine-grained token.";
+        return;
+      }
+
+      try {
+        const salt = crypto.getRandomValues(new Uint8Array(16));
+        const iv = crypto.getRandomValues(new Uint8Array(12));
+
+        const baseKey = await crypto.subtle.importKey(
+          "raw",
+          new TextEncoder().encode(password),
+          "PBKDF2",
+          false,
+          ["deriveKey"]
+        );
+
+        const key = await crypto.subtle.deriveKey(
+          {
+            name: "PBKDF2",
+            salt,
+            iterations: ITERATIONS,
+            hash: "SHA-256"
+          },
+          baseKey,
+          { name: "AES-GCM", length: 256 },
+          false,
+          ["encrypt"]
+        );
+
+        const encrypted = await crypto.subtle.encrypt(
+          { name: "AES-GCM", iv },
+          key,
+          new TextEncoder().encode(token)
+        );
+
+        const settings = {
+          version: 1,
+          username,
+          iterations: ITERATIONS,
+          salt: bytesToBase64(salt),
+          iv: bytesToBase64(iv),
+          ciphertext: bytesToBase64(new Uint8Array(encrypted))
+        };
+
+        generatedText =
+`/*
+  Generated McIntyre Cookbook family admin configuration.
+
+  The GitHub token below is encrypted with the family password.
+  The plaintext password and plaintext GitHub token are NOT stored in this file.
+
+  Do not manually edit the encrypted values. Run token-setup.html again
+  whenever you want to change the family password or GitHub token.
+*/
+window.COOKBOOK_ADMIN_SECRETS = ${JSON.stringify(settings, null, 2)};
+`;
+
+        document.querySelector("#output").value = generatedText;
+        document.querySelector("#output-panel").hidden = false;
+        status.textContent = "Encryption complete. Download admin-secrets.js.";
+      } catch (error) {
+        console.error(error);
+        status.textContent = "Encryption failed. Open this page in a current version of Chrome, Edge, or Firefox.";
+      }
+    }
+
+    function bytesToBase64(bytes) {
+      let binary = "";
+      for (const byte of bytes) binary += String.fromCharCode(byte);
+      return btoa(binary);
+    }
+
+    function downloadFile() {
+      if (!generatedText) return;
+      const blob = new Blob([generatedText], { type: "text/javascript" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "admin-secrets.js";
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    async function copyOutput() {
+      if (!generatedText) return;
+      await navigator.clipboard.writeText(generatedText);
+      document.querySelector("#status").textContent = "Copied admin-secrets.js contents.";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Family Admin | The McIntyre Recipe Book</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-page">
+  <header class="admin-header">
+    <div class="admin-header-inner">
+      <a class="admin-brand" href="index.html">The McIntyre Recipe Book</a>
+      <a class="secondary-button" href="index.html">Back to Cookbook</a>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <section id="login-panel" class="admin-card login-card">
+      <p class="section-label">Family access</p>
+      <h1>Recipe Administration</h1>
+      <p class="muted">
+        Sign in with the universal family username and password.
+        The GitHub publishing token is unlocked only for this browser session.
+      </p>
+
+      <div id="setup-warning" class="setup-warning" hidden>
+        <strong>Admin setup is not complete.</strong>
+        Run <code>token-setup.html</code> on your computer, then upload the generated
+        <code>admin-secrets.js</code> file to the website.
+      </div>
+
+      <form id="login-form" class="admin-form">
+        <label>
+          Family Username
+          <input id="admin-username" type="text" autocomplete="username" required />
+        </label>
+
+        <label>
+          Family Password
+          <input id="admin-password" type="password" autocomplete="current-password" required />
+        </label>
+
+        <button id="login-button" class="primary-button" type="submit">Sign In</button>
+        <p id="login-message" class="admin-message" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section id="dashboard" class="admin-card dashboard" hidden>
+      <div class="dashboard-heading">
+        <div>
+          <p class="section-label">Family cookbook</p>
+          <h1>Recipe Administration</h1>
+          <p class="muted">
+            Add, edit, delete, and publish recipes directly to the cookbook repository.
+          </p>
+        </div>
+
+        <button id="logout-button" class="secondary-button" type="button">Sign Out</button>
+      </div>
+
+      <div class="admin-toolbar">
+        <strong id="recipe-total">0 recipes</strong>
+        <div class="admin-actions">
+          <button id="new-recipe-button" class="primary-button" type="button">+ Add New Recipe</button>
+          <button id="reload-button" class="secondary-button" type="button">Reload Latest</button>
+        </div>
+      </div>
+
+      <p id="admin-message" class="admin-message" role="status" aria-live="polite"></p>
+      <div id="recipe-list" class="admin-recipe-list"></div>
+
+      <section id="recipe-editor" class="recipe-editor" hidden>
+        <div class="editor-heading">
+          <div>
+            <p id="editor-mode-label" class="section-label">Add recipe</p>
+            <h2 id="editor-title">Add a New Recipe</h2>
+          </div>
+          <button id="close-editor-button" class="secondary-button" type="button">Close</button>
+        </div>
+
+        <form id="recipe-form" class="admin-form">
+          <input id="recipe-id" type="hidden" />
+
+          <div class="admin-grid">
+            <label>
+              Recipe Name <span aria-hidden="true">*</span>
+              <input id="recipe-title" type="text" required />
+            </label>
+
+            <label>
+              Category
+              <input id="recipe-category" type="text" placeholder="Dinner, Dessert, Breakfast..." />
+            </label>
+
+            <label>
+              Prep Time
+              <input id="recipe-prep" type="text" placeholder="15 minutes" />
+            </label>
+
+            <label>
+              Cook Time
+              <input id="recipe-cook" type="text" placeholder="45 minutes" />
+            </label>
+
+            <label>
+              Servings
+              <input id="recipe-servings" type="text" placeholder="6" />
+            </label>
+
+            <label>
+              Recipe Source
+              <input id="recipe-source" type="text" placeholder="Grandma, family favorite..." />
+            </label>
+          </div>
+
+          <label>
+            Existing Image Path
+            <input id="recipe-image-path" type="text" placeholder="images/example.jpg" />
+            <span class="field-hint">Leave this alone when editing to keep the current image.</span>
+          </label>
+
+          <label>
+            Upload New Recipe Image
+            <input id="recipe-image" type="file" accept="image/*" />
+            <span class="field-hint">The image will publish to the repository's <strong>images/</strong> folder.</span>
+          </label>
+
+          <div id="image-preview-wrap" class="admin-image-preview-wrap" hidden>
+            <img id="image-preview" class="admin-image-preview" alt="Recipe image preview" />
+          </div>
+
+          <label>
+            Ingredients <span aria-hidden="true">*</span>
+            <textarea id="recipe-ingredients" rows="8" placeholder="One ingredient per line" required></textarea>
+          </label>
+
+          <label>
+            Instructions <span aria-hidden="true">*</span>
+            <textarea id="recipe-instructions" rows="8" placeholder="One step per line" required></textarea>
+          </label>
+
+          <label>
+            Family Notes
+            <textarea id="recipe-notes" rows="4"></textarea>
+          </label>
+
+          <div class="admin-actions">
+            <button id="save-button" class="primary-button" type="submit">Save & Publish Recipe</button>
+            <button id="cancel-button" class="secondary-button" type="button">Cancel</button>
+          </div>
+        </form>
+      </section>
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="admin-secrets.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
