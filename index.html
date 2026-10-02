@@ -6,10 +6,12 @@
   <title>The McIntyre Recipe Book</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
   <header class="site-hero" id="top">
     <nav class="top-nav" aria-label="Main navigation">
       <a class="brand" href="#top">The McIntyre Recipe Book</a>
+
       <div class="nav-links">
         <a href="#recipes">Recipes</a>
         <a href="#admin-access">Admin Access</a>
@@ -18,64 +20,163 @@
 
     <section class="hero-content">
       <p class="eyebrow">Family Cookbook</p>
+
       <h1>Recipes worth passing down.</h1>
+
       <p class="hero-text">
-        Search, save, edit, print, and preserve our family favorites in one polished cookbook-style website.
+        Search, print, and preserve our family favorites in one polished
+        cookbook-style website.
       </p>
-      <a class="primary-button" href="#recipes">Browse Recipes</a>
+
+      <a class="primary-button" href="#recipes">
+        Browse Recipes
+      </a>
     </section>
   </header>
 
   <main>
-    <section class="cookbook-panel github-panel" id="admin-access" aria-labelledby="admin-access-title">
-  <div class="section-heading form-heading">
-    <div>
-      <p class="section-label">Family Administration</p>
-      <h2 id="admin-access-title">Admin Access</h2>
-      <p class="muted">
-        Family members with Admin access can add, edit, and manage recipes.
-        Click Login to open the Family Recipe Administration page.
-      </p>
-    </div>
-  </div>
+    <section
+      class="cookbook-panel github-panel"
+      id="admin-access"
+      aria-labelledby="admin-access-title"
+    >
+      <div class="section-heading form-heading">
+        <div>
+          <p class="section-label">
+            Family Administration
+          </p>
 
-  <div class="form-actions">
-    <a class="primary-button" href="admin.html">Login</a>
-  </div>
-</section>
+          <h2 id="admin-access-title">
+            Admin Access
+          </h2>
 
-    <section class="cookbook-panel search-panel" aria-labelledby="recipe-search-title">
-      <div>
-        <p class="section-label">Find a favorite</p>
-        <h2 id="recipe-search-title">Search Recipes</h2>
+          <p class="muted">
+            Family members with Admin access can add, edit,
+            and manage recipes. Click Login to open the
+            Family Recipe Administration page.
+          </p>
+        </div>
       </div>
-      <label class="search-box" for="recipe-search">
-        <span>Search by name, category, ingredient, note, source, or step</span>
-        <input id="recipe-search" type="search" placeholder="Try beef, taco, cream cheese..." />
+
+      <div class="form-actions">
+        <a
+          class="primary-button"
+          href="admin.html"
+        >
+          Login
+        </a>
+      </div>
+    </section>
+
+    <section
+      class="cookbook-panel search-panel"
+      aria-labelledby="recipe-search-title"
+    >
+      <div>
+        <p class="section-label">
+          Find a favorite
+        </p>
+
+        <h2 id="recipe-search-title">
+          Search Recipes
+        </h2>
+      </div>
+
+      <label
+        class="search-box"
+        for="recipe-search"
+      >
+        <span>
+          Search by name, category, ingredient,
+          note, source, or step
+        </span>
+
+        <input
+          id="recipe-search"
+          type="search"
+          placeholder="Try beef, taco, cream cheese..."
+        />
       </label>
     </section>
 
-    <section class="recipes-section" id="recipes" aria-labelledby="recipes-title">
+    <section
+      class="recipes-section"
+      id="recipes"
+      aria-labelledby="recipes-title"
+    >
       <div class="section-heading">
         <div>
-          <p class="section-label">Cookbook</p>
-          <h2 id="recipes-title">Recipe Collection</h2>
+          <p class="section-label">
+            Cookbook
+          </p>
+
+          <h2 id="recipes-title">
+            Recipe Collection
+          </h2>
         </div>
-        <p id="recipe-count" class="recipe-count"></p>
+
+        <p
+          id="recipe-count"
+          class="recipe-count"
+        ></p>
       </div>
 
-      <div id="recipes-grid" class="recipes-grid"></div>
-      <div id="empty-state" class="empty-state" hidden>
+      <div
+        id="recipes-grid"
+        class="recipes-grid"
+      ></div>
+
+      <div
+        id="empty-state"
+        class="empty-state"
+        hidden
+      >
         <h3>No recipes found</h3>
-        <p>Try a different search, or add a new family recipe below.</p>
+
+        <p>
+          Try a different search.
+        </p>
       </div>
-    </section>    
+    </section>
   </main>
 
   <footer class="site-footer">
-    <p>&copy; <span id="current-year"></span> The McIntyre Recipe Book. Made for family favorites.</p>
-    <a href="#top">Back to Top</a>
+    <p>
+      &copy;
+      <span id="current-year"></span>
+      The McIntyre Recipe Book.
+      Made for family favorites.
+    </p>
+
+    <a href="#top">
+      Back to Top
+    </a>
   </footer>
+
+  <!-- Full Recipe Modal -->
+  <div
+    id="recipe-modal"
+    class="recipe-modal"
+    hidden
+  >
+    <div
+      class="recipe-modal-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="recipe-modal-title"
+    >
+      <button
+        id="recipe-modal-close"
+        class="recipe-modal-close"
+        type="button"
+        aria-label="Close recipe"
+      >
+        &times;
+      </button>
+
+      <div id="recipe-modal-content"></div>
+    </div>
+  </div>
 
   <script src="config.js"></script>
   <script src="app.js"></script>
