@@ -5,7 +5,7 @@
     "category": "Dinner / Breakfast",
     "prepTime": "20 minutes",
     "cookTime": "40 minutes",
-    "servings": "—",
+    "servings": "8 - 10",
     "source": "Tim Jr",
     "image": "images/golden-cheesy-sausage-breakfast-bake.png",
     "ingredients": [
@@ -31,7 +31,7 @@
       "Layer 2 - Hash brown patties→ gravy→ cheese",
       "Layer 3 - Crescent-roll sheet→ sausage→ gravy→ cheese",
       "Layer 4 - Remaining hash brown patties→ gravy→ cheese",
-      "Top - Final crescent-roll sheet→ small amount of gravy→ generous layer of cheese. That gives you alternating crescent, crispy potatoes, sausage, gravy, and cheese rather than everything blending into one layer.",
+      "Top - Final crescent-roll sheet→ small amount of gravy→ generous layer of cheese. (That gives you alternating crescent, crispy potatoes, sausage, gravy, and cheese rather than everything blending into one layer.)",
       "Adding eggs - Whisk together: 5 – 6 eggs, ¼ cup milk and Black pepper",
       "Pour the mixture slowly over the casserole before adding the final crescent sheet. (Don't use too much egg mixture—you want breakfast-lasagna layers, not an egg casserole with crescent dough inside it.)",
       "Bake Covered loosely with foil and bake at 375°F for 25 minutes",
@@ -40,7 +40,7 @@
     ],
     "notes": "Great for Breakfast (when prepped ahead of time) or Dinner",
     "createdAt": "2026-10-02T15:40:05.858Z",
-    "updatedAt": "2026-10-02T15:48:59.245Z"
+    "updatedAt": "2026-10-02T15:50:09.653Z"
   },
   {
     "id": "9feece34-2466-48c8-809f-e9f28e091b24",
