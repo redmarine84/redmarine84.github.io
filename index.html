@@ -12,8 +12,7 @@
       <a class="brand" href="#top">The McIntyre Recipe Book</a>
       <div class="nav-links">
         <a href="#recipes">Recipes</a>
-        <a href="#add-recipe">Add Recipe</a>
-        <a href="#editor-access">Editor Access</a>
+        <a href="#admin-access">Admin Access</a>
       </div>
     </nav>
 
@@ -23,52 +22,27 @@
       <p class="hero-text">
         Search, save, edit, print, and preserve your family favorites in one polished cookbook-style website.
       </p>
-      <a class="primary-button" href="#add-recipe">Add a New Recipe</a>
+      <a class="primary-button" href="#recipes">Browse Recipes</a>
     </section>
   </header>
 
   <main>
-    <section class="cookbook-panel github-panel" id="editor-access" aria-labelledby="editor-access-title">
-      <div class="section-heading form-heading">
-        <div>
-          <p class="section-label">Recipe publishing</p>
-          <h2 id="editor-access-title">Editor Access</h2>
-          <p class="muted">
-            Recipes publish to <strong>data/recipes.json</strong> and uploaded images publish to <strong>images/filename</strong> in this GitHub Pages repo.
-            The GitHub owner, repo, branch, and folders are set once in <strong>config.js</strong>, so family members do not have to enter them here.
-          </p>
-        </div>
-      </div>
+    <section class="cookbook-panel github-panel" id="admin-access" aria-labelledby="admin-access-title">
+  <div class="section-heading form-heading">
+    <div>
+      <p class="section-label">Family Administration</p>
+      <h2 id="admin-access-title">Admin Access</h2>
+      <p class="muted">
+        Family members with Admin access can add, edit, and manage recipes.
+        Click Login to open the Family Recipe Administration page.
+      </p>
+    </div>
+  </div>
 
-      <form id="github-form" class="github-form">
-        <input id="github-owner" name="owner" type="hidden" />
-        <input id="github-repo" name="repo" type="hidden" />
-        <input id="github-branch" name="branch" type="hidden" />
-        <input id="github-image-folder" name="imageFolder" type="hidden" />
-        <input id="github-recipes-path" name="recipesPath" type="hidden" />
-
-        <div class="form-grid single-column">
-          <label>
-            Editor GitHub Token
-            <input id="github-token" name="token" type="password" placeholder="Paste editor token to publish changes" autocomplete="off" />
-            <span class="field-hint">
-              Only people allowed to publish recipe changes need this. Visitors can still search and print recipes without a token.
-            </span>
-          </label>
-        </div>
-
-        <div class="form-actions">
-          <button class="primary-button" id="save-github-settings-button" type="button">Save Editor Token</button>
-          <button class="secondary-button" id="load-github-recipes-button" type="button">Load Latest Recipes</button>
-          <button class="secondary-button" id="publish-recipes-button" type="button">Publish Current Recipes</button>
-        </div>
-
-        <p class="field-hint">
-          Do not put your GitHub token inside <strong>config.js</strong>. Tokens are saved only in the current browser.
-        </p>
-        <p id="github-message" class="save-message" role="status" aria-live="polite"></p>
-      </form>
-    </section>
+  <div class="form-actions">
+    <a class="primary-button" href="admin.html">Login</a>
+  </div>
+</section>
 
     <section class="cookbook-panel search-panel" aria-labelledby="recipe-search-title">
       <div>
@@ -95,97 +69,7 @@
         <h3>No recipes found</h3>
         <p>Try a different search, or add a new family recipe below.</p>
       </div>
-    </section>
-
-    <section class="cookbook-panel form-panel" id="add-recipe" aria-labelledby="add-recipe-title">
-      <div class="section-heading form-heading">
-        <div>
-          <p class="section-label" id="form-mode-label">Preserve a favorite</p>
-          <h2 id="add-recipe-title">Add a New Recipe</h2>
-          <p class="muted" id="form-help-text">Add a recipe, optionally upload its image to GitHub, and publish the cookbook.</p>
-        </div>
-      </div>
-
-      <div id="edit-status" class="edit-status" hidden>
-        <strong>Editing:</strong> <span id="edit-status-title"></span>
-      </div>
-
-      <form id="recipe-form" class="recipe-form">
-        <input id="editing-recipe-id" name="editingRecipeId" type="hidden" />
-
-        <div class="form-grid">
-          <label>
-            Recipe Name <span aria-hidden="true">*</span>
-            <input id="recipe-title" name="title" type="text" placeholder="Grandma's Chicken Casserole" required />
-          </label>
-
-          <label>
-            Category
-            <input id="recipe-category" name="category" type="text" placeholder="Dinner, Dessert, Holiday..." />
-          </label>
-
-          <label>
-            Prep Time
-            <input id="recipe-prep" name="prepTime" type="text" placeholder="15 minutes" />
-          </label>
-
-          <label>
-            Cook Time
-            <input id="recipe-cook" name="cookTime" type="text" placeholder="45 minutes" />
-          </label>
-
-          <label>
-            Servings
-            <input id="recipe-servings" name="servings" type="text" placeholder="6" />
-          </label>
-
-          <label>
-            Recipe Source
-            <input id="recipe-source" name="source" type="text" placeholder="Grandma, Aunt Eva, cookbook, website..." />
-          </label>
-        </div>
-
-        <label>
-          Recipe Image Path
-          <input id="recipe-image-path" name="imagePath" type="text" placeholder="images/bot.png" />
-          <span class="field-hint">Use <strong>images/filename.png</strong> for images already in your repo. Uploaded images will also save to <strong>images/</strong>.</span>
-        </label>
-
-        <label>
-          Upload New Recipe Image to GitHub
-          <input id="recipe-image" name="image" type="file" accept="image/*" />
-          <span class="field-hint">When editing, leave this blank to keep the current image, or choose a new image to replace it.</span>
-        </label>
-
-        <label>
-          Ingredients <span aria-hidden="true">*</span>
-          <textarea id="recipe-ingredients" name="ingredients" rows="7" placeholder="Enter one ingredient per line" required></textarea>
-        </label>
-
-        <label>
-          Instructions <span aria-hidden="true">*</span>
-          <textarea id="recipe-instructions" name="instructions" rows="7" placeholder="Enter one step per line" required></textarea>
-        </label>
-
-        <label>
-          Family Notes
-          <textarea id="recipe-notes" name="notes" rows="4" placeholder="Optional: who made it, holiday memories, substitutions, etc."></textarea>
-        </label>
-
-        <div class="image-preview-wrap" id="image-preview-wrap" hidden>
-          <p id="image-preview-title">Image Preview</p>
-          <img id="image-preview" alt="Recipe preview" />
-          <button class="text-button" id="remove-image-button" type="button">Remove Image / Use Placeholder</button>
-        </div>
-
-        <div class="form-actions">
-          <button class="primary-button form-submit" id="save-recipe-button" type="button">Save Recipe</button>
-          <button class="secondary-button" id="cancel-edit-button" type="button" hidden>Cancel Edit</button>
-        </div>
-
-        <p id="save-message" class="save-message" role="status" aria-live="polite"></p>
-      </form>
-    </section>
+    </section>    
   </main>
 
   <footer class="site-footer">
