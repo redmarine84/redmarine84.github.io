@@ -125,7 +125,7 @@ const recipesGrid = document.querySelector("#recipes-grid");
 const recipeCount = document.querySelector("#recipe-count");
 const emptyState = document.querySelector("#empty-state");
 const searchInput = document.querySelector("#recipe-search");
-const recipeForm = document.querySelector("#recipe-form");
+//const recipeForm = document.querySelector("#recipe-form");
 const imageInput = document.querySelector("#recipe-image");
 const imagePathInput = document.querySelector("#recipe-image-path");
 const imagePreviewWrap = document.querySelector("#image-preview-wrap");
@@ -143,7 +143,7 @@ const cancelEditButton = document.querySelector("#cancel-edit-button");
 const removeImageButton = document.querySelector("#remove-image-button");
 const saveMessage = document.querySelector("#save-message");
 
-const githubForm = document.querySelector("#github-form");
+//const githubForm = document.querySelector("#github-form");
 const githubOwnerInput = document.querySelector("#github-owner");
 const githubRepoInput = document.querySelector("#github-repo");
 const githubBranchInput = document.querySelector("#github-branch");
