@@ -1,0 +1,16 @@
+name = "mcintyre-cookbook-admin"
+main = "worker.js"
+compatibility_date = "2026-10-02"
+
+[vars]
+GITHUB_OWNER = "redmarine84"
+GITHUB_REPO = "redmarine84.github.io"
+GITHUB_BRANCH = "master"
+RECIPES_PATH = "data/recipes.json"
+ALLOWED_ORIGIN = "https://redmarine84.github.io"
+
+# Add these as encrypted Worker secrets, NEVER here:
+# GITHUB_TOKEN
+# ADMIN_USERNAME
+# ADMIN_PASSWORD
+# SESSION_SECRET
