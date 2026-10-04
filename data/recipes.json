@@ -1,5 +1,36 @@
 [
   {
+    "id": "65ed39bd-a982-42fe-b4c8-cbaec493cc0b",
+    "title": "Goulash",
+    "category": "Dinner",
+    "prepTime": "15 minutes",
+    "cookTime": "30 minutes",
+    "servings": "6",
+    "source": "Tim Jr",
+    "image": "images/goulash.png",
+    "ingredients": [
+      "1 Lb. Ground Beef",
+      "2 Cups Beef Broth",
+      "3 Bay leaves",
+      "1 can Diced Tomatoes (15 oz)",
+      "1 can Tomato Sauce (15 oz)",
+      "2 Tbsp Worcestershire Sauce",
+      "6 oz Dry Elbow Noodles",
+      "1 Medium onion Diced fine",
+      "1 Tbsp Minced Garlic",
+      "Salt and Pepper to taste"
+    ],
+    "instructions": [
+      "Brown and drain the ground beef",
+      "Add onion, garlic Worcestershire, Diced tomatoes, tomato sauce, beef broth, bay leaves and Elbow noodles.",
+      "Stir and cook on Medium to Medium High until noodles are tender.",
+      "Salt and pepper to taste and serve."
+    ],
+    "notes": "",
+    "createdAt": "2026-10-04T23:44:47.306Z",
+    "updatedAt": "2026-10-04T23:44:47.306Z"
+  },
+  {
     "id": "6ef26415-0605-421a-814c-db94948dd853",
     "title": "Breakfast Lasagna Casserole",
     "category": "Dinner / Breakfast",
